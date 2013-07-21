@@ -1,0 +1,20 @@
+qextends ../admin_layout
+
+block content
+
+  h2 SMS
+
+  fieldset
+
+    legend Broadcasting
+
+    p #{broadcastingMessage}
+
+    form(action="/sms/startbroadcast", method="post")
+      label(for="minutes") Time(min)
+      input#ms(name="minutes")
+      input(type="submit", value="Start")
+    br
+
+    form(action="/sms/stopbroadcast", method="post")
+      input(type="submit", value="Stop")

@@ -1,0 +1,16 @@
+extends ../admin_layout
+
+block content
+
+  h2 Play
+
+  include ../includes/form
+
+  .debug
+
+    h2 Debug Output
+
+    article
+      each participant in participants
+        pre= participant
+        p Scorecount is #{participant.score}

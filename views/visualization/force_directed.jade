@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+
+  include ../includes/instructions
+
+  include ../includes/donations
+
+  #force-directed.visualization
+
+    h1.visualization-header
+
+    .visualization-body
+
+block scripts
+    script(src="/js/libs/d3.v3.min.js?")
+    script(src="/js/force_directed.js")
+    script(src="/js/force_directed_init.js")
