@@ -3,8 +3,6 @@ require 'log_buddy'
 require 'logger'
 require 'pry-debugger'
 
-
-
 # Read the local configuration
 @config = YAML.load_file("config/database.yml")
   

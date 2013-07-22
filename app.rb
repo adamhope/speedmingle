@@ -10,13 +10,19 @@ require_all 'models'
 handler = MessageHandler.create(Email)
 
 set :slim, :pretty => true
+set :public_folder, File.dirname(__FILE__) + '/assets'
+
+if Participant.where(email: "dom@dom.com").first.nil?
+  EmailParticipant.create!(:email => "dom@dom.com")
+end
 
 get '/' do
    slim :'index'
 end
 
 get '/participants/list' do
-  slim :'participants/index'
+  @participants = Participant.all
+  slim :'participants/index' 
 end
 
 # Returns all participants in database
