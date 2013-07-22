@@ -12,6 +12,5 @@ module Email
   private
 
   def email_participant(participant, body)
-
   end
 end

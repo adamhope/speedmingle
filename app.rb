@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'json'
-require 'sinatra/json'
+require 'slim'
 require 'require_all'
 require 'pry-debugger'
 require_all 'config/init'
@@ -8,6 +8,8 @@ require_all 'messaging'
 require_all 'models'
 
 handler = MessageHandler.create(Email)
+
+set :slim, :pretty => true
 
 get '/' do
    "Hello World! Is it me you're looking for?"

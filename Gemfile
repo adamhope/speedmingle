@@ -8,8 +8,8 @@ gem 'require_all'
 gem 'mongo_mapper'
 gem 'bson_ext'
 gem 'log_buddy'
-gem 'factory_girl'
-gem 'database_cleaner'
+
+gem 'slim'
 
 
 group :development do
@@ -20,4 +20,5 @@ end
 
 group :test do
   gem 'rspec'
+  gem 'database_cleaner'
 end

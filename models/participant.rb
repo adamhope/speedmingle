@@ -1,5 +1,4 @@
 require 'mongo_mapper'
-require 'factory_girl'
 
 class Participant
   include MongoMapper::Document
