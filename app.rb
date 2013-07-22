@@ -12,7 +12,11 @@ handler = MessageHandler.create(Email)
 set :slim, :pretty => true
 
 get '/' do
-   "Hello World! Is it me you're looking for?"
+   slim :'index'
+end
+
+get '/participants/list' do
+  slim :'participants/index'
 end
 
 # Returns all participants in database

@@ -1,0 +1,26 @@
+doctype
+html
+  head
+    title
+    link[href="/visualization.css" rel="stylesheet" type="text/css"]
+    meta[http-equiv="refresh" content="30"]
+  body.undefined
+    .main
+      #instructions
+        p
+          | Text your full name to strong 
+          strong
+            | 0418 917 876
+          |  to register and get your PIN #
+        p
+          | Ask other registered Minglers to SMS your PIN # to 
+          strong
+            | 0418 917 876
+      #scoreboard.visualization
+        h1.visualization-header
+        .visualization-body
+  script[src="/js/libs/jquery-1.10.1.min.js"]
+  script[src="/js/libs/underscore.js"]
+  script[src="/js/libs/d3.v3.min.js?"]
+  script[src="/js/scoreboard.js"]
+  script[src="/js/scoreboard_init.js"]

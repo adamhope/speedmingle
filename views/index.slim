@@ -1,0 +1,38 @@
+doctype
+html
+  head
+    title
+    link href="/admin.css" rel="stylesheet" type="text/css"
+  body.admin
+    header.admin-header
+      a href="/"
+
+      h1
+        | Speed Mingle Admin
+    .main
+      h2
+        | Settings
+      ul
+        li
+          a href="/participants/list"
+            | Play
+        li
+          a href="/sms" 
+            | SMS
+      h2
+        | Visualisations
+      ul
+        li
+          a href="/visualization/leaderboard" 
+            | Leaderboard
+        li
+          a href="/visualization/scoreboard" 
+            | Scoreboard
+        li
+          a href="/visualization/force-directed" 
+            | Force Directed
+        li
+          a href="/visualization/hierarchial-edge-bundling" 
+            | Hiearchial Edge Bundling
+    script src="/js/libs/jquery-1.10.1.min.js" 
+    script src="/js/libs/underscore.js" 
