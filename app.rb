@@ -1,20 +1,7 @@
 require 'sinatra'
-require 'json'
-require 'slim'
-require 'require_all'
-require 'pry-debugger'
-require_all 'config/init'
-require_all 'messaging'
-require_all 'models'
+require './config/init'
 
-handler = MessageHandler.create(Email)
-
-set :slim, :pretty => true
-set :public_folder, File.dirname(__FILE__) + '/assets'
-
-if Participant.where(email: "dom@dom.com").first.nil?
-  EmailParticipant.create!(:email => "dom@dom.com")
-end
+handler = MessageHandler.create(Email)   
 
 get '/' do
    slim :'index'

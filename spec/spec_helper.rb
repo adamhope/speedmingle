@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
+require_relative '../app'
 require 'rspec'
 require 'rack/test'
 require 'database_cleaner'

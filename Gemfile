@@ -8,7 +8,7 @@ gem 'require_all'
 gem 'mongo_mapper'
 gem 'bson_ext'
 gem 'log_buddy'
-
+gem 'sass'
 gem 'slim'
 
 

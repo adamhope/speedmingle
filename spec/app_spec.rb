@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe 'The SMS voting game version 2' do
-
-  it "says hello" do
-    get '/'
-    last_response.body.should =~ /Hello World/
-  end
-
   context "participants" do
 
     before :each do
