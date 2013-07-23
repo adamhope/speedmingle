@@ -1,0 +1,18 @@
+form.form-horizontal[action="/participants/create" method="post"]
+  .row
+    label.col-lg-2.control-label[for="inputEmail"]
+      | Email
+    .col-lg-10
+      input#inputEmail placeholder="Email" type="text"
+  .row
+    label.col-lg-2.control-label[for="inputPassword"]
+      |Password
+    .col-lg-10
+      input#inputPassword[placeholder="Password" type="password"]
+        .checkbox
+          label
+            input[type="checkbox"]
+              | Remember me
+    .col-lg-10.col-offset-2
+      button.btn.btn-default[type="submit"]
+        | Submit

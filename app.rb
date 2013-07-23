@@ -1,5 +1,6 @@
 require 'sinatra'
 require './config/init'
+require 'sinatra/partial'
 
 handler = MessageHandler.create(Email)   
 

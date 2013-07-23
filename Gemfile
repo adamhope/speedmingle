@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'sinatra-partial'
 gem 'mongo'
 gem 'json'
 gem 'require_all'
