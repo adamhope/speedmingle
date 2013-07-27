@@ -1,18 +1,32 @@
-form.form-horizontal[action="/participants/create" method="post"]
+.page-header
+  h1 Create a new participant
+  p.lead Add players to the game
+
+form#contact.form-horizontal
   .row
     label.col-lg-2.control-label[for="inputEmail"]
       | Email
-    .col-lg-10
-      input#inputEmail placeholder="Email" type="text"
+    .col-lg-4
+      input#email[placeholder="Email" type="email"]
   .row
-    label.col-lg-2.control-label[for="inputPassword"]
-      |Password
-    .col-lg-10
-      input#inputPassword[placeholder="Password" type="password"]
-        .checkbox
-          label
-            input[type="checkbox"]
-              | Remember me
-    .col-lg-10.col-offset-2
+    .col-lg-4.col-offset-2
       button.btn.btn-default[type="submit"]
         | Submit
+
+javascript:
+  $('#contact').on('submit',function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/participants/create',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      type: 'POST',
+      data : JSON.stringify({ "email": $("#email").val() }),
+      success: function(json) {
+        alert('all done');
+      },
+      error: function(json) {
+        console.error(json);
+      }
+    })
+  })

@@ -1,6 +1,7 @@
 require 'sinatra'
 require './config/init'
 require 'sinatra/partial'
+require 'pry-debugger'
 
 handler = MessageHandler.create(Email)   
 
