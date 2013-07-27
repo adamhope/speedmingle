@@ -2,8 +2,8 @@ require_relative '../models/participant'
 
 module Email
   def create(data)
-    participant = Participant.create!(:email => data["email"])
-    email_participant(participant, "Thank you for registering!")
+    participant = EmailParticipant.create!(:email => data["email"])
+    send_email(participant, "Thank you for registering!")
   end
 
   def vote(from_email, to_email)
@@ -11,6 +11,6 @@ module Email
 
   private
 
-  def email_participant(participant, body)
+  def send_email(participant, body)
   end
 end
