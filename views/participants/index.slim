@@ -1,21 +1,31 @@
 .page-header
   h1 Participants
-  p.lead Players in the game
-article
-  table.table.table-condensed
-    thead
-      tr
-        th Type
-        th Email
-        th Score
-        th JSON
-    tbody
-    - for participant in @participants
-      tr
-        td #{participant._type}
-        td #{participant.email}
-        td #{participant.score}
-        td 
-          a href="#" data-toggle="tooltip" title="" data-original-title="Default tooltip" Toggle
+  p.lead Add players to the game
+
+== render :slim, :'participants/form'  
+
+.page-header
+  p.lead Current players in the game
+
+table.table.table-condensed
+  thead
+    tr
+      th Type
+      th ID
+      th Email
+      th Score
+      th JSON
+  tbody
+  - for participant in @participants
+    tr
+      td #{participant._type}
+      td #{participant._id}
+      td #{participant.email}
+      td #{participant.score}
+      td 
+        a[href="#" rel="popover" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="<pre>#{participant.to_json}</pre>" data-title="#{participant.email}" data-html="true"] 
+          | Toggle
+
   
-== render :slim, :'participants/form'
+javascript:
+  $("[rel='popover']").popover();

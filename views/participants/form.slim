@@ -1,32 +1,32 @@
-.page-header
-  h1 Create a new participant
-  p.lead Add players to the game
-
-form#contact.form-horizontal
+form#contact
+  #errors.row
+    .col-lg-12
   .row
-    label.col-lg-2.control-label[for="inputEmail"]
-      | Email
     .col-lg-4
       input#email[placeholder="Email" type="email"]
-  .row
-    .col-lg-4.col-offset-2
-      button.btn.btn-default[type="submit"]
-        | Submit
+    .col-lg-1
+      button.btn.btn-primary[type="submit"] Submit
 
 javascript:
   $('#contact').on('submit',function (e) {
     e.preventDefault();
     $.ajax({
       url: '/participants/create',
-      contentType: 'application/json; charset=utf-8',
+      accepts: "application/json",
       dataType: 'json',
       type: 'POST',
       data : JSON.stringify({ "email": $("#email").val() }),
       success: function(json) {
-        alert('all done');
+        location.reload();
       },
-      error: function(json) {
-        console.error(json);
+      error: function(xhr, errorType, exception) {
+        $.each(xhr.responseJSON, function(key, value) {
+          console.log();
+          $("#errors .col-lg-12").html(
+            "<div class='alert alert-danger'><strong>Error: </strong>" + key + ' ' + value + "</div>"
+           )
+        });        
+        
       }
     })
   })

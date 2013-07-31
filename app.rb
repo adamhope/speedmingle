@@ -3,7 +3,7 @@ require './config/init'
 require 'sinatra/partial'
 require 'pry-debugger'
 
-handler = MessageHandler.create(Email)   
+handler = MessageHandler.create(Email)
 
 get '/' do
    slim :'index'
@@ -30,9 +30,14 @@ delete '/participants/:id' do |id|
   Participant.where(id: id).first.destroy
 end
 
-post '/participants/create' do
+post '/participants/create', :provides => :json do
   data = JSON.parse request.body.read
-  handler.create(data)
+  p = handler.create(data)
+  if p.errors.empty?
+    p.to_json
+  else
+    error 400, p.errors.to_json
+  end
 end
 
 post 'participants/vote' do

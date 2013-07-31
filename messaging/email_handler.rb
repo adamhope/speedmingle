@@ -1,9 +1,13 @@
+require 'sinatra'
 require_relative '../models/participant'
 
 module Email
   def create(data)
-    participant = EmailParticipant.create!(:email => data["email"])
-    send_email(participant, "Thank you for registering!")
+    ep = EmailParticipant.new(:email => data["email"])
+    if ep.save
+      send_email(p, "Thank you for registering!")
+    end
+    ep
   end
 
   def vote(from_email, to_email)
