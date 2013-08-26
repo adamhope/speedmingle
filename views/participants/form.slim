@@ -3,7 +3,7 @@ form#contact
     .col-lg-12
   .row
     .col-lg-4
-      input#email[placeholder="Email" type="email"]
+      input#phonenumber[placeholder="Phone Number" type="tel"]
     .col-lg-1
       button.btn.btn-primary[type="submit"] Submit
 
@@ -15,7 +15,7 @@ javascript:
       accepts: "application/json",
       dataType: 'json',
       type: 'POST',
-      data : JSON.stringify({ "email": $("#email").val() }),
+      data : JSON.stringify({ "phone_number": $("#phonenumber").val() }),
       success: function(json) {
         location.reload();
       },

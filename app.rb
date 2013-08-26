@@ -3,7 +3,7 @@ require './config/init'
 require 'sinatra/partial'
 require 'pry-debugger'
 
-handler = MessageHandler.create(Email)
+handler = MessageHandler.create(Sms)
 
 get '/' do
    slim :'index'

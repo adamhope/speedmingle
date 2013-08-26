@@ -12,19 +12,15 @@ table.table.table-condensed
     tr
       th Type
       th ID
-      th Email
+      th Phone Number
       th Score
-      th JSON
   tbody
   - for participant in @participants
     tr
       td #{participant._type}
       td #{participant._id}
-      td #{participant.email}
+      td #{participant.phone_number}
       td #{participant.score}
-      td 
-        a[href="#" rel="popover" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="<pre>#{participant.to_json}</pre>" data-title="#{participant.email}" data-html="true"] 
-          | Toggle
 
   
 javascript:
