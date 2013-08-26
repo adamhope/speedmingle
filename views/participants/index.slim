@@ -1,25 +1,27 @@
-.page-header
-  h1 Participants
-  p.lead Add players to the game
+.container
+  .page-header
+    h1 Participants
+    p.lead Add players to the game
 
-== render :slim, :'participants/form'
+  == render :slim, :'participants/form'
 
-.page-header
-  p.lead Current players in the game
+  .page-header
+    p.lead Current players in the game
 
-table.table.table-condensed
-  thead
-    tr
-      th ID
-      th Phone Number
-      th Score
-  tbody
-  - for participant in @participants
-    tr
-      td #{participant._id}
-      td #{participant.phone_number}
-      td #{participant.score}
-
+  table.table.table-condensed
+    thead
+      tr
+        th Type
+        th ID
+        th Phone Number
+        th Score
+    tbody
+    - for participant in @participants
+      tr
+        td #{participant._type}
+        td #{participant._id}
+        td #{participant.phone_number}
+        td #{participant.score}
 
 javascript:
   $("[rel='popover']").popover();

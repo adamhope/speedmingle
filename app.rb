@@ -9,7 +9,7 @@ get '/' do
    slim :'index'
 end
 
-get '/participants/list' do
+get '/admin/participants' do
   @participants = Participant.all
   slim :'participants/index'
 end
@@ -46,7 +46,7 @@ post 'participants/vote' do
 end
 
 get '/visualization/leaderboard' do
-
+  slim :'visualization/leaderboard'
 end
 
 get '/visualization/scoreboard' do
