@@ -23,6 +23,8 @@ GEM
     debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     eventmachine (1.0.3)
+    faker (1.2.0)
+      i18n (~> 0.5)
     ffi (1.9.0)
     i18n (0.6.1)
     json (1.8.0)
@@ -98,6 +100,7 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   database_cleaner
+  faker
   json
   log_buddy
   mongo

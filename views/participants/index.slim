@@ -10,14 +10,12 @@
 table.table.table-condensed
   thead
     tr
-      th Type
       th ID
       th Phone Number
       th Score
   tbody
   - for participant in @participants
     tr
-      td #{participant._type}
       td #{participant._id}
       td #{participant.phone_number}
       td #{participant.score}

@@ -18,6 +18,7 @@ group :development do
   gem 'pry'
   gem 'pry-debugger'
   gem 'rerun'
+  gem 'faker'
 end
 
 group :test do
