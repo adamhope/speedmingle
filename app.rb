@@ -11,7 +11,7 @@ end
 
 get '/participants/list' do
   @participants = Participant.all
-  slim :'participants/index' 
+  slim :'participants/index'
 end
 
 # Returns all participants in database
@@ -45,6 +45,18 @@ post 'participants/vote' do
   service.vote(data)
 end
 
-get '/leaderboard' do
+get '/visualization/leaderboard' do
+
+end
+
+get '/visualization/scoreboard' do
+
+end
+
+get '/visualization/force-directed' do
+
+end
+
+get '/visualization/hierarchial-edge-bundling' do
 
 end

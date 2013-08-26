@@ -2,7 +2,7 @@
   h1 Participants
   p.lead Add players to the game
 
-== render :slim, :'participants/form'  
+== render :slim, :'participants/form'
 
 .page-header
   p.lead Current players in the game
@@ -20,6 +20,6 @@ table.table.table-condensed
       td #{participant.phone_number}
       td #{participant.score}
 
-  
+
 javascript:
   $("[rel='popover']").popover();
