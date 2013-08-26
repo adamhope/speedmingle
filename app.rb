@@ -50,13 +50,13 @@ get '/fx/leaderboard' do
 end
 
 get '/fx/scoreboard' do
-
+  slim :'fx/scoreboard'
 end
 
-get '/fx/force-directed' do
-
+get '/fx/swarm' do
+  slim :'fx/swarm'
 end
 
-get '/fx/hierarchial-edge-bundling' do
+get '/fx/connections' do
 
 end
