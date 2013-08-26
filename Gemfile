@@ -12,6 +12,7 @@ gem 'bson_ext'
 gem 'log_buddy'
 gem 'sass'
 gem 'slim'
+gem 'rake'
 
 
 group :development do
