@@ -5,8 +5,7 @@ class Participant
   
   key :voted_for_by, Array
   key :phone_number, String, unique: true, required: true
-  key :pin, String, unique: true, required: true
-  before_create :generate_pin
+  key :pin, String, unique: true
   before_create ->{self.pin = generate_pin}
 
   def score
