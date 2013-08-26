@@ -28,7 +28,7 @@ describe 'The participant model' do
 
     it 'generates unique pins' do
       pins = []
-      20.times do |counter|
+      15.times do |counter|
         Participant.stub(:count).and_return(counter)
         pins << participant.generate_pin
       end
