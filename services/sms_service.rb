@@ -7,7 +7,7 @@ class SmsService
     p
   end
 
-  def vote(from_id, to_id)
+  def vote(phone_number_from, pin_to)
   end
 
   private
