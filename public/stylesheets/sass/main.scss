@@ -1,16 +1,19 @@
-$blue: #e3eff4;
-$red: #b94a48;
-$grey: #f5f5f5;
+$accent-color: #e3eff4;
+
+body{
+  background: #241e2d;
+  color: white;
+}
 
 .page-header {
-  color: $red;
-  border-color: $red;
+  color: $accent-color;
+  border-color: $accent-color;
   h1 {
     font-size: 38.5px;
   }
   padding-bottom: 9px;
   margin: 40px 0 20px;
-  border-bottom: 1px solid #b94a48;
+  border-bottom: 1px solid $accent-color;
 }
 
 .bs-docs-section-header.red-headings {
