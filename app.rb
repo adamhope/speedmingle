@@ -3,7 +3,7 @@ require './config/init'
 require 'sinatra/partial'
 require 'pry-debugger'
 
-handler = MessageHandler.create(Sms)
+service = SmsService.new
 
 get '/' do
    slim :'index'
@@ -32,7 +32,7 @@ end
 
 post '/participants/create', :provides => :json do
   data = JSON.parse request.body.read
-  p = handler.create(data)
+  p = service.create(data)
   if p.errors.empty?
     p.to_json
   else
@@ -42,7 +42,7 @@ end
 
 post 'participants/vote' do
   data = JSON.parse request.body.read
-  handler.vote(data)
+  service.vote(data)
 end
 
 get '/leaderboard' do

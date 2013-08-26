@@ -1,4 +1,4 @@
-module Sms
+class SmsService
 
   def create(data)
     SmsParticipant.create(phone_number: data["phone_number"])
