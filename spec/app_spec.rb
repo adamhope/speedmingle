@@ -4,8 +4,8 @@ describe 'The SMS voting game version 2' do
   context "participants" do
 
     before :each do
-      @p1 = EmailParticipant.create!(:email => "dom@dom.com")
-      @p2 = EmailParticipant.create!(:email => "dom2@dom.com")
+      @p1 = Participant.create!(phone_number: "0414213852")
+      @p2 = Participant.create!(phone_number: "0404882585")
     end
 
     it "returns a list of participants" do
@@ -19,16 +19,16 @@ describe 'The SMS voting game version 2' do
     end
 
     it "creates a participant" do
-      p = { email: "dom3@dom.com" }.to_json
+      p = { phone_number: "0414213852" }.to_json
       post '/participants/create', p, {'Content-Type' => 'application/json'}
-      Participant.where(email: "dom3@dom.com").first.present?.should == true
+      Participant.where(phone_number: "0404882585").first.present?.should == true
     end
 
     it "deletes a participant" do
       Participant.count.should == 2
       delete "/participants/#{@p2.id}"
       Participant.count.should == 1
-      Participant.where(email: @p2.email).first.should be_nil
+      Participant.where(phone_number: @p2.phone_number).first.should be_nil
     end 
   end
 end
