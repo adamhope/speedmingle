@@ -19,9 +19,9 @@ describe 'The SMS voting game version 2' do
     end
 
     it "creates a participant" do
-      p = { phone_number: "0414213852" }.to_json
+      p = { phone_number: "000000000" }.to_json
       post '/participants/create', p, {'Content-Type' => 'application/json'}
-      Participant.where(phone_number: "0404882585").first.present?.should == true
+      Participant.where(phone_number: "000000000").first.present?.should == true
     end
 
     it "deletes a participant" do
