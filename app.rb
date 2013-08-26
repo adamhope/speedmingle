@@ -45,18 +45,18 @@ post 'participants/vote' do
   service.vote(data)
 end
 
-get '/visualization/leaderboard' do
-  slim :'visualization/leaderboard'
+get '/fx/leaderboard' do
+  slim :'fx/leaderboard'
 end
 
-get '/visualization/scoreboard' do
-
-end
-
-get '/visualization/force-directed' do
+get '/fx/scoreboard' do
 
 end
 
-get '/visualization/hierarchial-edge-bundling' do
+get '/fx/force-directed' do
+
+end
+
+get '/fx/hierarchial-edge-bundling' do
 
 end
