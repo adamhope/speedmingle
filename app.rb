@@ -58,5 +58,5 @@ get '/fx/swarm' do
 end
 
 get '/fx/connections' do
-
+  slim :'fx/connections'
 end
