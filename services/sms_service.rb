@@ -18,13 +18,15 @@ class SmsService
       else
         message = 'Invalid pin'
       end
+    else
+      message = 'Sorry, you must register before connecting. SMS your full name to register'
     end
-    send_sms(participant_from, message) if message
+    send_sms(phone_number_from, message) if message
   end
 
   private
 
-  def send_sms(participant, message)
+  def send_sms(phone_number, message)
     puts message
   end
 
