@@ -5,31 +5,27 @@ speedmingle
 
 1. Pull dependencies down
 
-```shell
-→ bundle install
-...
-Your bundle is complete!
-```
-
+  ```shell
+  → bundle install
+  ...
+  Your bundle is complete!
+  ```
 2. Start MongoDB server
 
-```shell
-→ mongod
-all output going to: /usr/local/var/log/mongodb/mongo.log
-```
-
+  ```shell
+  → mongod
+  all output going to: /usr/local/var/log/mongodb/mongo.log
+  ```
 3. Run the app
 
-```shell
-→ rackup
-[2013-08-28 07:38:42] INFO  WEBrick 1.3.1
-[2013-08-28 07:38:42] INFO  ruby 1.9.3 (2012-04-20) [x86_64-darwin12.2.0]
-[2013-08-28 07:38:42] INFO  WEBrick::HTTPServer#start: pid=15798 port=9292
-```
+  ```shell
+  → rackup
+  [2013-08-28 07:38:42] INFO  WEBrick 1.3.1
+  [2013-08-28 07:38:42] INFO  ruby 1.9.3 (2012-04-20) [x86_64-darwin12.2.0]
+  [2013-08-28 07:38:42] INFO  WEBrick::HTTPServer#start: pid=15798 port=9292
+  ```
 
 ### Running the specs: 
-
-##### (requires MongoDB running)
 
 ```shell
 → rspec
