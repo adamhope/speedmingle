@@ -17,6 +17,7 @@ class Participant
   end
 
   def connect_to(participant)
-    connected_to_ids << participant.id unless connected_to_ids.include?(participant.id)
+    self.push_uniq(connected_to_ids: participant.id)
+    self.reload
   end
 end
