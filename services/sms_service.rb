@@ -12,7 +12,7 @@ class SmsService
     if participant_from
       participant_to = Participant.find_by_pin(pin_to)
       if participant_to
-        # participant_to.
+        participant_to.connect_from(participant_from)
       end
     end
   end

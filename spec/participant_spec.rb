@@ -27,19 +27,19 @@ describe 'The participant model' do
     participant.pin.should_not be_nil
   end
 
-  describe '#connect_to' do
+  describe '#connect_from' do
     let!(:participant_a) {Participant.create!(phone_number: '0411221122')}
     let!(:participant_b) {Participant.create!(phone_number: '0400000000')}
 
     it 'adds the participant if not already there' do
-      participant_a.connect_to(participant_b)
+      participant_a.connect_from(participant_b)
       participant_a.connected_to_ids.should include(participant_b.id)
       participant_a.connected_to_ids.length.should == 1
     end
 
     it 'does not add participant if already there' do
-      participant_a.connect_to(participant_b)
-      participant_a.connect_to(participant_b)
+      participant_a.connect_from(participant_b)
+      participant_a.connect_from(participant_b)
       participant_a.connected_to_ids.should include(participant_b.id)
       participant_a.connected_to_ids.length.should == 1
     end

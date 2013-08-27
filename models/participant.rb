@@ -16,7 +16,7 @@ class Participant
     Random.rand(9).to_s + ("%03d" % Participant.count).to_s
   end
 
-  def connect_to(participant)
+  def connect_from(participant)
     self.push_uniq(connected_to_ids: participant.id)
     self.reload
   end
