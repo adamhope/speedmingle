@@ -12,8 +12,12 @@ class SmsService
     if participant = Participant.find_by_phone_number(phone_number)
       message = "#{participant.username}, you are already registered and your PIN is #{participant.pin}"
     else
-      participant = Participant.create(phone_number: phone_number, username: username)
-      message = "#{username}, thank you for registering. Your PIN is #{participant.pin}"
+      participant = Participant.new(phone_number: phone_number, username: username)
+      if participant.save
+        message = "#{username}, thank you for registering. Your PIN is #{participant.pin}"
+      else
+        message = "Sorry, #{username} is already taken. Please try a different username."
+      end
     end
     send_sms(phone_number, message) if message
   end

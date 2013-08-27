@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe 'SmsService' do
   
-  let(:sms_service) do 
-    service = SmsService.new
-    service.stub(:send_sms)
-    service
-  end
+  let(:sms_service) {SmsService.new}
 
   describe '#register' do
     context 'participant is new' do
@@ -33,7 +29,12 @@ describe 'SmsService' do
     end
 
     context 'participant username is already taken' do
+      let!(:participant) {Participant.create!(phone_number: '04111111', username: 'Fred')}
 
+      it 'sends a message explaining that the username has already been taken' do
+        sms_service.should_receive(:send_sms).with('11111111', "Sorry, #{participant.username} is already taken. Please try a different username.")
+        sms_service.register('11111111', participant.username)
+      end
     end
 
   end
