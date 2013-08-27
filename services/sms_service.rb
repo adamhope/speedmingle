@@ -9,12 +9,17 @@ class SmsService
 
   def connect(phone_number_from, pin_to)
     participant_from = Participant.find_by_phone_number(phone_number_from)
+    message = nil
     if participant_from
       participant_to = Participant.find_by_pin(pin_to)
       if participant_to
         participant_to.connect_from(participant_from)
+        message = "Thanks for connecting with"
+      else
+        message = 'Invalid pin'
       end
     end
+    send_sms(participant_from, message) if message
   end
 
   private

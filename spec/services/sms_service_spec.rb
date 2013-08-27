@@ -24,6 +24,19 @@ describe 'SmsService' do
         @participant_a.reload
         @participant_a.score.should == 0
       end
+
+      it 'sends thank you message' do
+        sms_service.should_receive(:send_sms).with(@participant_a, 'Thanks for connecting with')
+        sms_service.connect @participant_a.phone_number, @participant_b.pin 
+      end
+    end
+
+    context 'no participant has the pin' do
+      it 'sends a message informing the participant that the pin is incorrect' do
+        sms_service.should_receive(:send_sms).with(@participant_a, 'Invalid pin')
+        sms_service.connect @participant_a.phone_number, '00000'
+      end
+
     end
   end
 end
