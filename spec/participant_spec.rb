@@ -3,33 +3,33 @@ require 'spec_helper'
 describe 'The participant model' do
   
   it "should create a new participant, and be returned by id" do
-    participant = Participant.create!(phone_number: "0414213852")
+    participant = Participant.create!(phone_number: "0414213852", username: 'Fred')
     Participant.where(:id => participant.id).first.phone_number.should == "0414213852"
   end
 
   it "should return a list of participants" do
-    Participant.create!(phone_number: "0414213852")
-    Participant.create!(phone_number: "0404882585")
+    Participant.create!(phone_number: "0414213852", username: 'Fred')
+    Participant.create!(phone_number: "0404882585", username: 'Dom')
     Participant.count.should == 2
   end
 
   it "should delete an existing participant" do
-    participant = Participant.create!(phone_number: "0414213852")
+    participant = Participant.create!(phone_number: "0414213852", username: 'Fred')
     Participant.all.length.should == 1
     participant.destroy
     Participant.count.should == 0
   end
 
   it 'sets a unique pin when creating' do
-    participant = Participant.new(phone_number: '02020202')
+    participant = Participant.new(phone_number: '02020202', username: 'Fred')
     participant.pin.should be_nil
     participant.save
     participant.pin.should_not be_nil
   end
 
   describe '#connect_from' do
-    let!(:participant_a) {Participant.create!(phone_number: '0411221122')}
-    let!(:participant_b) {Participant.create!(phone_number: '0400000000')}
+    let!(:participant_a) {Participant.create!(phone_number: '0411221122', username: 'Fred')}
+    let!(:participant_b) {Participant.create!(phone_number: '0400000000', username: 'Dom')}
 
     it 'adds the participant if not already there' do
       participant_a.connect_from(participant_b)

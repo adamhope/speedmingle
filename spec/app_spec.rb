@@ -4,8 +4,8 @@ describe 'The SMS voting game version 2' do
   context "participants" do
 
     before :each do
-      @p1 = Participant.create!(phone_number: "0414213852")
-      @p2 = Participant.create!(phone_number: "0404882585")
+      @p1 = Participant.create!(phone_number: "0414213852", username: 'Fred')
+      @p2 = Participant.create!(phone_number: "0404882585", username: 'Dom')
     end
 
     it "returns a list of participants" do

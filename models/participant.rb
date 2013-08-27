@@ -4,7 +4,7 @@ class Participant
   include MongoMapper::Document
   
   key :phone_number, String, unique: true, required: true
-  key :username, String, unique: true, required: true
+  key :username, String, unique: true #, required: true TODO will be require!
   key :pin, String, unique: true
   key :connected_to_ids, Array
   before_create ->{self.pin = generate_pin}
