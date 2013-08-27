@@ -25,7 +25,11 @@ describe 'SmsService' do
     end
 
     context 'participant is already registered' do
-
+      let!(:participant) {Participant.create!(phone_number: '04111111', username: 'Fred')}
+      it 'sends a message explaining that the participant is already registered' do
+        sms_service.should_receive(:send_sms).with(participant.phone_number, "Fred, you are already registered and your PIN is #{participant.pin}")
+        sms_service.register(participant.phone_number, participant.username)
+      end
     end
 
     context 'participant username is already taken' do
