@@ -57,7 +57,7 @@ describe 'SmsService' do
       end
 
       it 'sends thank you message' do
-        sms_service.should_receive(:send_sms).with(@participant_a.phone_number, 'Thanks for connecting with')
+        sms_service.should_receive(:send_sms).with(@participant_a.phone_number, 'Thanks for connecting with Dom')
         sms_service.connect @participant_a.phone_number, @participant_b.pin 
       end
     end

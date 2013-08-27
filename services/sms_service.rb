@@ -28,7 +28,7 @@ class SmsService
       participant_to = Participant.find_by_pin(pin_to)
       if participant_to
         participant_to.connect_from(participant_from)
-        "Thanks for connecting with"
+        "Thanks for connecting with #{participant_to.username}"
       else
         'Invalid pin'
       end
