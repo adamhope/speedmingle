@@ -3,16 +3,20 @@ require 'mongo_mapper'
 class Participant
   include MongoMapper::Document
   
-  key :voted_for_by, Array
+  key :connected_to_ids, Array
   key :phone_number, String, unique: true, required: true
   key :pin, String, unique: true
   before_create ->{self.pin = generate_pin}
 
   def score
-    voted_for_by.length
+    connected_to_ids.length
   end
 
   def generate_pin
     Random.rand(9).to_s + ("%03d" % Participant.count).to_s
+  end
+
+  def connect_to(participant)
+    connected_to_ids << participant.id unless connected_to_ids.include?(participant.id)
   end
 end
