@@ -8,10 +8,36 @@ describe 'SmsService' do
     service
   end
 
+  describe '#register' do
+    context 'participant is new' do
+      it 'creates a new participant' do
+        sms_service.register('0410101010', 'Fred')
+        Participant.count.should == 1
+        Participant.first.username.should == 'Fred'
+        Participant.first.phone_number.should == '0410101010'
+      end
+
+      it 'sends a welcome message' do
+        sms_service.should_receive(:send_sms).with('0410101010', /Fred, thank you for registering. Your PIN is \d000/)
+        sms_service.register('0410101010', 'Fred')
+      end
+
+    end
+
+    context 'participant is already registered' do
+
+    end
+
+    context 'participant username is already taken' do
+
+    end
+
+  end
+
   describe '#connect' do 
     before do
-      @participant_a = Participant.create!(phone_number: '0411111111')
-      @participant_b = Participant.create!(phone_number: '0422222222')
+      @participant_a = Participant.create!(phone_number: '0411111111', username: 'Fred')
+      @participant_b = Participant.create!(phone_number: '0422222222', username: 'Dom')
     end
 
     context 'both participant exist' do

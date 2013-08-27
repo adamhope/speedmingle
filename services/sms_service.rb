@@ -7,6 +7,11 @@ class SmsService
     p
   end
 
+  def register(phone_number, username)
+    participant = Participant.create(phone_number: phone_number, username: username)
+    send_sms(phone_number, "#{username}, thank you for registering. Your PIN is #{participant.pin}")
+  end
+
   def connect(phone_number_from, pin_to)
     participant_from = Participant.find_by_phone_number(phone_number_from)
     message = if participant_from

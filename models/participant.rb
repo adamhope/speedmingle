@@ -3,9 +3,10 @@ require 'mongo_mapper'
 class Participant
   include MongoMapper::Document
   
-  key :connected_to_ids, Array
   key :phone_number, String, unique: true, required: true
+  key :username, String, unique: true, required: true
   key :pin, String, unique: true
+  key :connected_to_ids, Array
   before_create ->{self.pin = generate_pin}
 
   def score
