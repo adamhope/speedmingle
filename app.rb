@@ -1,7 +1,6 @@
 require 'sinatra'
 require './config/init'
 require 'sinatra/partial'
-require 'pry-debugger'
 
 service = SmsService.new
 
