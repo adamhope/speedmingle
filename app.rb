@@ -20,10 +20,10 @@ get '/participants' do
   Participant.all.to_json
 end
 
-# Return a specific participant, using it's ID
-get '/participants/:id' do |id|
+# Return a specific participant, using it's PIN
+get '/participants/:pin' do |pin|
   content_type :json
-  Participant.where(id: id).first.to_json
+  Participant.where(pin: pin).first.to_json
 end
 
 delete '/participants/:id' do |id|
