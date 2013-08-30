@@ -12,12 +12,14 @@
     thead
       tr
         th ID
+        th Name
         th Phone Number
         th Score
     tbody
     - for participant in @participants
       tr
         td #{participant._id}
+        td #{participant.username}
         td #{participant.phone_number}
         td #{participant.score}
 

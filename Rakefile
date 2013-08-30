@@ -11,14 +11,14 @@ namespace :db do
   desc "Seeds the database with some demo data"
   task :seed => :environment do
     require 'faker'
-    Faker::Config.locale = :en
     if Participant.count == 0
-      Participant.create!(phone_number: "0404585882")
-      Participant.create!(phone_number: "0414213852")
+      Participant.create!(phone_number: "0414213852", username: "Dom")
+      Participant.create!(phone_number: "0404585882", username: "Fred")
       10.times do
         phone_number = Faker::PhoneNumber.phone_number
+        username = Faker::Name.name
         puts "Creating participant with phone number: #{phone_number}"
-        Participant.create!(phone_number: phone_number)
+        Participant.create!(phone_number: phone_number, username: username)
       end
     end
   end
