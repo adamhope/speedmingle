@@ -26,13 +26,13 @@ get '/participants/:pin' do |pin|
   Participant.where(pin: pin).first.to_json
 end
 
-delete '/participants/:id' do |id|
-  Participant.where(id: id).first.destroy
+delete '/participants/:pin' do |pin|
+  Participant.where(pin: pin).first.destroy
 end
 
-post '/participants/create', :provides => :json do
+post '/participants/register', :provides => :json do
   data = JSON.parse request.body.read
-  p = service.create(data)
+  p = service.register(data["phone_number"], data["username"])
   if p.errors.empty?
     p.to_json
   else
@@ -40,9 +40,9 @@ post '/participants/create', :provides => :json do
   end
 end
 
-post 'participants/vote' do
+post '/participants/connect', :provides => :json do
   data = JSON.parse request.body.read
-  service.vote(data)
+  service.connect(data["from_phone_number"], data["to_pin"])
 end
 
 get '/fx/leaderboard' do

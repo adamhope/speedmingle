@@ -1,12 +1,4 @@
 class SmsService
-  def create(data)
-    p = Participant.new(phone_number: data["phone_number"], username: data["username"])
-    if p.save
-      send_sms(p, "Thank you for registering #{p.phone_number}.")
-    end
-    p
-  end
-
   def register(phone_number, username)
     message = nil
     if participant = Participant.find_by_phone_number(phone_number)
@@ -20,6 +12,7 @@ class SmsService
       end
     end
     send_sms(phone_number, message) if message
+    participant
   end
 
   def connect(phone_number_from, pin_to)

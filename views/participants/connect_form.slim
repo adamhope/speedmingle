@@ -1,0 +1,37 @@
+form#connect.form-horizontal
+  #errors.row
+    .col-lg-12
+  .row
+    .col-lg-4
+      input#from[placeholder="Pin from" type="tel"]
+  .row
+    .col-lg-4
+      input#to[placeholder="Pin to" type="tel"]
+    .col-lg-1
+      button.btn.btn-primary[type="submit"] Connect
+
+javascript:
+  $('#connect').on('submit',function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/participants/connect',
+      accepts: "application/json",
+      dataType: 'json',
+      type: 'POST',
+      data : JSON.stringify({ 
+        "from": $("#username").val(),
+        "to": $("#phonenumber").val()
+      }),
+      success: function(json) {
+        location.reload();
+      },
+      error: function(xhr, errorType, exception) {
+        $.each(xhr.responseJSON, function(key, value) {
+          console.log();
+          $("#errors .col-lg-12").html(
+            "<div class='alert alert-danger'><strong>Error: </strong>" + key + ' ' + value + "</div>"
+           )
+        });
+      }
+    })
+  })
