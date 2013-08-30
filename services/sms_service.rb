@@ -1,6 +1,6 @@
 class SmsService
   def create(data)
-    p = Participant.new(phone_number: data["phone_number"])
+    p = Participant.new(phone_number: data["phone_number"], username: data["username"])
     if p.save
       send_sms(p, "Thank you for registering #{p.phone_number}.")
     end

@@ -14,6 +14,7 @@
         th ID
         th Name
         th Phone Number
+        th Pin
         th Score
     tbody
     - for participant in @participants
@@ -21,6 +22,7 @@
         td #{participant._id}
         td #{participant.username}
         td #{participant.phone_number}
+        td #{participant.pin}
         td #{participant.score}
 
 javascript:

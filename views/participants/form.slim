@@ -1,6 +1,9 @@
-form#contact
+form#contact.form-horizontal
   #errors.row
     .col-lg-12
+  .row
+    .col-lg-4
+      input#username[placeholder="Username" type="text"]
   .row
     .col-lg-4
       input#phonenumber[placeholder="Phone Number" type="tel"]
@@ -15,7 +18,10 @@ javascript:
       accepts: "application/json",
       dataType: 'json',
       type: 'POST',
-      data : JSON.stringify({ "phone_number": $("#phonenumber").val() }),
+      data : JSON.stringify({ 
+        "username": $("#username").val(),
+        "phone_number": $("#phonenumber").val()
+      }),
       success: function(json) {
         location.reload();
       },
