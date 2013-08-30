@@ -1,13 +1,19 @@
 development:
   host: localhost
   port: 27017
-  database: sms-voting-game-2-development
+  database: speedmingle-dev
   logfile: development.log
     
+test:
+  host: localhost
+  port: 27017
+  database: speedmingle-test
+  logfile: test.log
+ 
 production:
   host: localhost
   port: 27017
-  database: dict_prod
+  database: speedmingle-prod
   logfile: production.log
     
 environment: development
