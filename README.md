@@ -1,6 +1,10 @@
 speedmingle
 ===========
 
+#### CircleCI: http://circleci.com/gh/dbousamra/speedmingle
+
+#### Heroku deployment: http://speedmingle.herokuapp.com/
+
 ### Running the app:
 
 1. Pull dependencies down
@@ -40,3 +44,9 @@ Will drop all collections from db
 
 ##### rake db:seed
 Seeds the database with 12 dummy participants
+
+### CI and Deploying the app:
+
+Pushing to Github (`origin/master` remote) will automatically fire off specs via [CircleCI:](https://circleci.com/gh/dbousamra/speedmingle) and also deploy to [Heroku](http://speedmingle.herokuapp.com/). 
+
+PLEASE. PLEASE do not force push onto Heroku remote(`heroku/master`). It will cause CircleCI to have a shit-fit.
