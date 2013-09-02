@@ -65,7 +65,7 @@ get '/sample_data/participants' do
   send_file File.join(settings.public_folder, 'js/sample_data/participants.json')
 end
 
-get '/sample_data/participants' do
+get '/sample_data/links' do
   content_type :json
   send_file File.join(settings.public_folder, 'js/sample_data/links.json')
 end
