@@ -1,0 +1,26 @@
+development:
+  db_uri: 'mongodb://localhost'
+  db_name: 'speedmingle-dev'
+  auth_username: ''
+  auth_password: ''
+
+test:
+  db_uri: 'mongodb://localhost'
+  db_name: 'speedmingle-test'
+  auth_username: ''
+  auth_password: ''
+
+production:
+  db_uri: ENV['MONGOLAB_URI']
+  db_name: 'speedmingle-production'
+  auth_username: ENV['SETTINGS_AUTH_USERNAME'] || 'needtobechanged'
+  auth_password: ENV['SETTINGS_AUTH_PASSWORD'] || 'needtobechanged'
+  burst_api_url: ENV['BURST_API_URL']
+  burst_api_key: ENV['BURST_API_KEY']
+  burst_api_secret: ENV['BURST_API_SECRET']
+  burst_caller_id: ENV['BURST_CALLER_ID']
+
+
+  
+  
+  
