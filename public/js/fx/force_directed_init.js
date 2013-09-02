@@ -1,7 +1,7 @@
 setInterval(function () {
-  $.getJSON('/participants/links', updateGraph);
+  $.getJSON('/sample_data/links', updateGraph);
 }, 2000);
 
 $(document).ready(function() {
-  $.getJSON('/participants/links', initGraph);
+  $.getJSON('/sample_data/links', initGraph);
 });

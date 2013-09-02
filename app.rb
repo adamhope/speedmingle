@@ -59,3 +59,13 @@ end
 get '/fx/connections' do
   slim :'fx/connections'
 end
+
+get '/sample_data/participants' do
+  content_type :json
+  send_file File.join(settings.public_folder, 'js/sample_data/participants.json')
+end
+
+get '/sample_data/participants' do
+  content_type :json
+  send_file File.join(settings.public_folder, 'js/sample_data/links.json')
+end

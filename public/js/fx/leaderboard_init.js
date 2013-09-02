@@ -1,6 +1,6 @@
 $(document).ready(function() {
-  $.getJSON('/participants/json', updateLeaderboard);
+  $.getJSON('/sample_data/participants', updateLeaderboard);
   setInterval(function () {
-    $.getJSON('/participants/json', updateLeaderboard);
+    $.getJSON('/sample_data/participants', updateLeaderboard);
   }, 2000);
 });
