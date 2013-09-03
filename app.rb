@@ -44,6 +44,11 @@ post '/participants/connect', :provides => :json do
   service.connect(data["from_phone_number"], data["to_pin"])
 end
 
+get '/test' do
+  ENV['RACK_ENV'] + " " + settings.db_uri
+
+end
+
 get '/fx/leaderboard' do
   slim :'fx/leaderboard'
 end
