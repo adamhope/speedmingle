@@ -1,4 +1,9 @@
 class SmsService
+
+  def initialize(sender)
+    @sender = sender
+  end
+
   def register(phone_number, username)
     message = nil
     if participant = Participant.find_by_phone_number(phone_number)
@@ -11,7 +16,7 @@ class SmsService
         message = "Sorry, #{username} is already taken. Please try a different username."
       end
     end
-    send_sms(phone_number, message) if message
+    @sender.send_sms(phone_number, message) if message
     participant
   end
 
@@ -28,13 +33,6 @@ class SmsService
     else
       'Sorry, you must register before connecting. SMS your full name to register'
     end
-    send_sms(phone_number_from, message)
+    @sender.send_sms(phone_number_from, message)
   end
-
-  private
-
-  def send_sms(phone_number, message)
-    puts message
-  end
-
 end
