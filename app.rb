@@ -26,6 +26,15 @@ get '/participants' do
   Participant.all.to_json
 end
 
+# /sms/dispatch/?mobile=1234567890&response=Fred&message_id=0
+get '/sms/dispatch/' do
+  if /^\d+$/.match params['response']
+    service.connect(params["mobile"], params["response"])
+  else
+    service.register(params["mobile"], params["response"])
+  end
+end
+
 # Return a specific participant, using it's PIN
 get '/participants/:pin' do |pin|
   content_type :json
