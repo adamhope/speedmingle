@@ -3,10 +3,12 @@ require './config/init'
 require 'sinatra/partial'
 
 if settings.production?
-  service = SmsService.new(api_url:settings.burst_api_url, 
+  burst_sender = BurstSmsSender.new(
+    api_url:settings.burst_api_url, 
     api_key: settings.burst_api_key, 
     api_secret: settings.burst_api_secret, 
     caller_id: settings.burst_caller_id)
+  service = SmsService.new(burst_sender)
 else
   service = SmsService.new(BasicSender.new)
 end
