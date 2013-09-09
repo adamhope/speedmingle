@@ -13,7 +13,6 @@ class BurstSmsSender
   end
 
   def uri(phone_number, message)
-    binding.pry
     message_with_plus = message.split(' ').join('+')
     url = @api_url.clone
     url << "messages.single"

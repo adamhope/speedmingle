@@ -1,5 +1,4 @@
 class SmsService
-
   def initialize(sender)
     @sender = sender
   end
