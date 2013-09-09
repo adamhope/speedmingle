@@ -1,37 +1,40 @@
 class SmsService
-  def initialize(sender)
+  def initialize(sender, participant_service)
     @sender = sender
+    @participant_service = participant_service
   end
 
   def register(phone_number, username)
     message = nil
-    if participant = Participant.find_by_phone_number(phone_number)
-      message = "#{participant.username}, you are already registered and your PIN is #{participant.pin}"
-    else
-      participant = Participant.new(phone_number: phone_number, username: username)
-      if participant.save
-        message = "#{username}, thank you for registering. Your PIN is #{participant.pin}"
-      else
-        message = "Sorry, #{username} is already taken. Please try a different username."
-      end
+    begin
+      participant = @participant_service.register(phone_number, username)
+      message = "#{participant.username}, thank you for registering. Your PIN is #{participant.pin}"
+    
+    rescue SpeedmingleErrors::AlreadyRegistered => e
+      message = "#{e.args[:participant].username}, you are already registered and your PIN is #{e.args[:participant].pin}"
+    
+    rescue SpeedmingleErrors::UsernameTaken
+      message = "Sorry, #{username} is already taken. Please try a different username."
+    
+    ensure
+      @sender.send_sms(phone_number, message) if message
     end
-    @sender.send_sms(phone_number, message) if message
-    participant
   end
 
   def connect(phone_number_from, pin_to)
-    participant_from = Participant.find_by_phone_number(phone_number_from)
-    message = if participant_from
-      participant_to = Participant.find_by_pin(pin_to)
-      if participant_to
-        participant_to.connect_from(participant_from)
-        "Thanks for connecting with #{participant_to.username}"
-      else
-        'Invalid pin'
-      end
-    else
-      'Sorry, you must register before connecting. SMS your full name to register'
+    message = nil
+    begin
+      participant_to = @participant_service.connect(phone_number_from, pin_to)
+      message = "Thanks for connecting with #{participant_to.username}"
+    
+    rescue SpeedmingleErrors::InvalidPin
+      message = 'Invalid pin'
+
+    rescue SpeedmingleErrors::RegistrationNeeded
+      message = 'Sorry, you must register before connecting. SMS your full name to register'
+
+    ensure
+      @sender.send_sms(phone_number_from, message)
     end
-    @sender.send_sms(phone_number_from, message)
   end
 end

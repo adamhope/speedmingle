@@ -2,15 +2,16 @@ require 'sinatra'
 require './config/init'
 require 'sinatra/partial'
 
+participant_service = ParticipantService.new
 if settings.production?
   burst_sender = BurstSmsSender.new(
     api_url:settings.burst_api_url, 
     api_key: settings.burst_api_key, 
     api_secret: settings.burst_api_secret, 
     caller_id: settings.burst_caller_id)
-  service = SmsService.new(burst_sender)
+  sms_service = SmsService.new(burst_sender, participant_service)
 else
-  service = SmsService.new(BasicSender.new)
+  sms_service = SmsService.new(BasicSender.new, participant_service)
 end
 
 get '/' do
@@ -45,7 +46,7 @@ end
 
 post '/participants/register', :provides => :json do
   data = JSON.parse request.body.read
-  p = service.register(data["phone_number"], data["username"])
+  p = participant_service.register(data["phone_number"], data["username"])
   if p.errors.empty?
     p.to_json
   else
@@ -55,15 +56,15 @@ end
 
 post '/participants/connect', :provides => :json do
   data = JSON.parse request.body.read
-  service.connect(data["from_phone_number"], data["to_pin"])
+  participant_service.connect(data["from_phone_number"], data["to_pin"])
 end
 
 # /sms/dispatch/?mobile=1234567890&response=Fred&message_id=0
 get '/sms/dispatch/' do
   if /^\d+$/.match params['response']
-    service.connect(params["mobile"], params["response"])
+    sms_service.connect(params["mobile"], params["response"])
   else
-    service.register(params["mobile"], params["response"])
+    sms_service.register(params["mobile"], params["response"])
   end
 end
 
