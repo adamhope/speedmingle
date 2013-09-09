@@ -28,13 +28,9 @@ get '/participants' do
   Participant.sort(:score).to_json
 end
 
-# /sms/dispatch/?mobile=1234567890&response=Fred&message_id=0
-get '/sms/dispatch/' do
-  if /^\d+$/.match params['response']
-    service.connect(params["mobile"], params["response"])
-  else
-    service.register(params["mobile"], params["response"])
-  end
+get '/participants/links' do
+  content_type :json
+  Participant.links.to_json
 end
 
 # Return a specific participant, using it's PIN
@@ -62,6 +58,15 @@ post '/participants/connect', :provides => :json do
   service.connect(data["from_phone_number"], data["to_pin"])
 end
 
+# /sms/dispatch/?mobile=1234567890&response=Fred&message_id=0
+get '/sms/dispatch/' do
+  if /^\d+$/.match params['response']
+    service.connect(params["mobile"], params["response"])
+  else
+    service.register(params["mobile"], params["response"])
+  end
+end
+
 get '/fx/leaderboard' do
   slim :'fx/leaderboard'
 end
@@ -81,9 +86,4 @@ end
 get '/sample_data/participants' do
   content_type :json
   send_file File.join(settings.public_folder, 'js/sample_data/participants.json')
-end
-
-get '/sample_data/links' do
-  content_type :json
-  send_file File.join(settings.public_folder, 'js/sample_data/links.json')
 end

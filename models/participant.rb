@@ -21,4 +21,17 @@ class Participant
     self.push_uniq(connected_to_ids: participant.id)
     self.reload
   end
+
+  def self.links 
+    nodes = Participant.all.map { |p| { id: p.phone_number, name: p.username, size: p.score }}
+    links = Participant.all.map do |p| 
+      p.connected_to_ids.map do |v|
+        voter_phone_number = Participant.where(id: v).first.phone_number
+        if nodes.any? { |p| p[:id] == voter_phone_number }
+          { source: voter_phone_number, target: p.phone_number } 
+        end
+      end 
+    end
+    { nodes: nodes, links: links, totalDonation: 10,  nodeCount: 0, linkCount: 315 }
+  end
 end
