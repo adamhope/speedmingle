@@ -2,10 +2,10 @@ require 'net/http'
 
 class BurstSmsSender
   def initialize(args)
-    @api_url = args[:api_url]
-    @api_key = args[:api_key]
-    @api_secret = args[:api_secret]
-    @caller_id = args[:caller_id]
+    @api_url = args[:api_url].dup
+    @api_key = args[:api_key].dup
+    @api_secret = args[:api_secret].dup
+    @caller_id = args[:caller_id].dup
   end
 
   def send_sms(phone_number, message)
