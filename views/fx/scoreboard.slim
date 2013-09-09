@@ -12,6 +12,22 @@
       .visualization-body
 
 // Party in the back
-script src="/js/lib/d3.v3.min.js?"
-script src="/js/fx/scoreboard.js"
-script src="/js/fx/scoreboard_init.js"
+
+javascript:
+  var updateScoreboard = function (data) {
+    var ctx = $('#scoreboard');
+    $('.visualization-header', ctx).append('<b class="score">&#9733;</b>Most Connected');
+    $('.visualization-body', ctx).html('<ol class="all" />');
+    var topScore = data[0].score
+
+    $(data).each(function (index, p) {
+      $('.all', ctx).append('<li><div class="score-bar" style="width:' + p.score / topScore * 100 + '%;"></div><b class="score">' + p.score + '</b>' + p.username + '</li>');
+    });
+  };
+
+  $(document).ready(function() {
+    $.getJSON('/participants', updateScoreboard);
+  });
+
+
+
