@@ -9,12 +9,13 @@ class BurstSmsSender
   end
 
   def send_sms(phone_number, message)
-    Net::HTTP.get(uri(phone_number, message))
+    Net::HTTP.get_response(URI.parse(uri(phone_number, message)))
   end
 
   def uri(phone_number, message)
+    binding.pry
     message_with_plus = message.split(' ').join('+')
-    url = @api_url
+    url = @api_url.clone
     url << "messages.single"
     url << "?apikey=#{@api_key}"
     url << "&apisecret=#{@api_secret}"
