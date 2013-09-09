@@ -25,7 +25,7 @@ end
 # Returns all participants in database
 get '/participants' do
   content_type :json
-  Participant.sort(:score).to_json(:methods => [:score])
+  Participant.sort(:score).to_json
 end
 
 # /sms/dispatch/?mobile=1234567890&response=Fred&message_id=0
