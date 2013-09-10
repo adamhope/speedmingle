@@ -12,6 +12,13 @@ describe 'ParticipantService' do
         Participant.first.username.should == 'Fred'
         Participant.first.phone_number.should == '0410101010'
       end
+
+      it 'returns the newly created participant' do
+        p = participant_service.register('0410101010', 'Fred')
+        Participant.first.id.should == p.id
+        p.username.should == 'Fred'
+        p.phone_number.should == '0410101010'
+      end
     end
 
     context 'participant is already registered' do
