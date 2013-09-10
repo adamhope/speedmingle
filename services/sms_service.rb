@@ -37,4 +37,24 @@ class SmsService
       @sender.send_sms(phone_number_from, message)
     end
   end
+
+  def broadcast_ranking
+    participants = Participant.rank
+    
+    leader = participants.shift
+    send_in_the_lead(leader)
+    participants.each do |p|
+      send_connections_away_from_the_lead(leader.score, p)
+    end
+  end
+
+  def send_in_the_lead(participant)
+    @sender.send_sms(participant.phone_number, "#{participant.username}, you are in the lead")
+  end
+
+  def send_connections_away_from_the_lead(top_score, participant)
+    diff_score = top_score - participant.score + 1
+    n_connections = diff_score > 1 ? "#{diff_score} connections" : "#{diff_score} connection"
+    @sender.send_sms(participant.phone_number, "#{participant.username}, you are #{n_connections} away from the lead.")
+  end
 end
