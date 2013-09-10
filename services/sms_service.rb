@@ -41,12 +41,17 @@ class SmsService
   def broadcast_ranking
     participants = Participant.rank
     
-    leader = participants.shift
-    send_in_the_lead(leader)
+    top_score = participants.first.score
+    leaders = participants.select {|p| p.score == top_score}
+    if leaders.count == 1
+      send_in_the_lead(participants.shift)
+    end
     participants.each do |p|
-      send_connections_away_from_the_lead(leader.score, p)
+      send_connections_away_from_the_lead(top_score, p)
     end
   end
+
+  private
 
   def send_in_the_lead(participant)
     @sender.send_sms(participant.phone_number, "#{participant.username}, you are in the lead")
