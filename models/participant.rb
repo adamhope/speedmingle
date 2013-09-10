@@ -13,6 +13,10 @@ class Participant
     connected_to_ids.length
   end
 
+  def self.rank
+    Participant.all.sort_by(&:score).reverse
+  end
+
   def generate_pin
     Random.rand(9).to_s + ("%03d" % Participant.count).to_s
   end

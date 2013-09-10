@@ -61,4 +61,14 @@ describe 'The participant model' do
     end
   end
 
+  describe '#rank' do
+    it 'returns participant in order based on their score' do
+      participant_a = Participant.create!(phone_number: "0400000", username: 'A', connected_to_ids: [0,1])
+      participant_b = Participant.create!(phone_number: "0400001", username: 'B', connected_to_ids: [0,1,3,4])
+      participant_c = Participant.create!(phone_number: "0400002", username: 'C', connected_to_ids: [0,1,4])
+
+      Participant.rank.should == [participant_b, participant_c, participant_a]
+    end
+  end
+
 end
