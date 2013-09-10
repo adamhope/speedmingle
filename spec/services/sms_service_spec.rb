@@ -63,6 +63,13 @@ describe 'SmsService' do
 
   describe '#broadcast_ranking' do
     context '1 participant' do
+      before do
+        @participant = Participant.create!(phone_number: "0400000", username: 'A', connected_to_ids: [0,1])
+      end
+      it 'sends you are in the lead sms' do
+        sender.should_receive(:send_sms).with(@participant.phone_number, "#{@participant.username}, you are in the lead.")
+        sms_service.broadcast_ranking
+      end
     end
 
     context 'more than one participant' do
@@ -70,15 +77,15 @@ describe 'SmsService' do
         before do
           @participant_a = Participant.create!(phone_number: "0400000", username: 'A', connected_to_ids: [0,1])
           @leader = Participant.create!(phone_number: "0400001", username: 'B', connected_to_ids: [0,1,3,4])
-          @participant_c = Participant.create!(phone_number: "0400002", username: 'C', connected_to_ids: [0,1,4])
+          @participant_b = Participant.create!(phone_number: "0400002", username: 'C', connected_to_ids: [0,1,4])
         end
+
         it 'sends sms to all participants based on their score' do
-          sender.should_receive(:send_sms).with(@leader.phone_number, "#{@leader.username}, you are in the lead")
-          sender.should_receive(:send_sms).with(@participant_c.phone_number, "#{@participant_c.username}, you are 2 connections away from the lead.")
+          sender.should_receive(:send_sms).with(@leader.phone_number, "#{@leader.username}, you are in the lead.")
+          sender.should_receive(:send_sms).with(@participant_b.phone_number, "#{@participant_b.username}, you are 2 connections away from the lead.")
           sender.should_receive(:send_sms).with(@participant_a.phone_number, "#{@participant_a.username}, you are 3 connections away from the lead.")
 
           sms_service.broadcast_ranking
-
         end
       end
 

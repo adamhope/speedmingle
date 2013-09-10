@@ -40,7 +40,6 @@ class SmsService
 
   def broadcast_ranking
     participants = Participant.rank
-    
     top_score = participants.first.score
     leaders = participants.select {|p| p.score == top_score}
     if leaders.count == 1
@@ -54,7 +53,7 @@ class SmsService
   private
 
   def send_in_the_lead(participant)
-    @sender.send_sms(participant.phone_number, "#{participant.username}, you are in the lead")
+    @sender.send_sms(participant.phone_number, "#{participant.username}, you are in the lead.")
   end
 
   def send_connections_away_from_the_lead(top_score, participant)
