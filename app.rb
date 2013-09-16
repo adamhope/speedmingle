@@ -26,7 +26,7 @@ end
 # Returns all participants in database
 get '/participants' do
   content_type :json
-  Participant.sort(:score).to_json
+  Participant.rank.to_json
 end
 
 get '/participants/links' do
