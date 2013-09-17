@@ -40,7 +40,7 @@ end
 # Returns all participants in database
 get '/participants' do
   content_type :json
-  Participant.rank.to_json
+  Participant.to_filtered_json(Participant.rank)
 end
 
 get '/participants/links' do
@@ -50,6 +50,7 @@ end
 
 # Return a specific participant, using it's PIN
 get '/participants/:pin' do |pin|
+  protected!
   content_type :json
   Participant.where(pin: pin).first.to_json
 end

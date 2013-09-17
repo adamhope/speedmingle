@@ -9,6 +9,11 @@ class Participant
   key :connected_to_ids, Array
   before_create ->{self.pin = generate_pin}
 
+
+  def self.to_filtered_json(obj)
+    obj.to_json(except: [:phone_number, :pin])
+  end
+
   def score
     connected_to_ids.length
   end
