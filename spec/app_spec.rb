@@ -1,8 +1,11 @@
 require 'spec_helper'
 
-describe 'The SMS voting game version 2' do
-  context "participants" do
+describe 'Speedmingle' do
+  before do
+    Sinatra::Application.any_instance.stub(:authorized?).and_return(true)
+  end
 
+  context "participants" do
     before :each do
       @p1 = Participant.create!(phone_number: "0414213852", username: 'Fred', connected_to_ids: [1,2])
       @p2 = Participant.create!(phone_number: "0404882585", username: 'Dom', connected_to_ids: [])

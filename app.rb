@@ -2,6 +2,19 @@ require 'sinatra'
 require './config/init'
 require 'sinatra/partial'
 
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [settings.auth_username, settings.auth_password]
+  end
+end
+
 participant_service = ParticipantService.new
 if settings.production?
   burst_sender = BurstSmsSender.new(
@@ -19,6 +32,7 @@ get '/' do
 end
 
 get '/admin/participants' do
+  protected!
   @participants = Participant.all
   slim :'participants/index'
 end
@@ -41,10 +55,12 @@ get '/participants/:pin' do |pin|
 end
 
 delete '/participants/:pin' do |pin|
+  protected!
   Participant.where(pin: pin).first.destroy
 end
 
 post '/participants/register', :provides => :json do
+  protected!
   data = JSON.parse request.body.read
   p = participant_service.register(data["phone_number"], data["username"])
   if p.errors.empty?
@@ -55,6 +71,7 @@ post '/participants/register', :provides => :json do
 end
 
 post '/participants/connect', :provides => :json do
+  protected!
   data = JSON.parse request.body.read
   participant_service.connect(data["from_phone_number"], data["to_pin"])
 end
