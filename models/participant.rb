@@ -10,8 +10,8 @@ class Participant
   before_create ->{self.pin = generate_pin}
 
 
-  def self.to_filtered_json(obj)
-    obj.to_json(except: [:phone_number, :pin])
+  def serializable_hash(options = {})
+    super({ only: [:id, :username, :connected_to_ids] }.merge(options))
   end
 
   def score

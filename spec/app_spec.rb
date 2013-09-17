@@ -13,7 +13,7 @@ describe 'Speedmingle' do
 
     it "returns a list of participants" do
       get '/participants'
-      last_response.body.should == Participant.to_filtered_json([@p1, @p2])
+      last_response.body.should == [@p1, @p2].to_json
     end
 
     it "returns a single participant by pin" do

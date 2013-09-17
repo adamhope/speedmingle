@@ -40,7 +40,7 @@ end
 # Returns all participants in database
 get '/participants' do
   content_type :json
-  Participant.to_filtered_json(Participant.rank)
+  Participant.rank.to_json
 end
 
 get '/participants/links' do

@@ -71,13 +71,36 @@ describe 'The participant model' do
     end
   end
 
-  describe '#to_filtered_json' do
-    it 'returns public attributes only' do
+  describe '#to_json' do
+    it 'returns public attributes only by default on a single object' do
       participant_a = Participant.create!(phone_number: "0400000", username: 'A')
-      Participant.to_filtered_json(participant_a).should include('username')
-      Participant.to_filtered_json(participant_a).should include('connected_to_ids')
-      Participant.to_filtered_json(participant_a).should_not include('phone_number')
-      Participant.to_filtered_json(participant_a).should_not include('pin')
+      participant_a.to_json.should include('id')
+      participant_a.to_json.should include('username')
+      participant_a.to_json.should include('connected_to_ids')
+      participant_a.to_json.should_not include('phone_number')
+      participant_a.to_json.should_not include('pin')
+    end
+
+    it 'returns public attributes only by default on an array' do
+      Participant.create!(phone_number: "0400000", username: 'A')
+      Participant.create!(phone_number: "0400001", username: 'B')
+      json = Participant.all.to_json
+      json.should include('id')
+      json.should include('username')
+      json.should include('connected_to_ids')
+      json.should_not include('phone_number')
+      json.should_not include('pin')
+    end
+
+    it 'returns public attributes only by default even when calling #rank' do
+      Participant.create!(phone_number: "0400000", username: 'A')
+      Participant.create!(phone_number: "0400001", username: 'B')
+      json = Participant.rank.to_json
+      json.should include('id')
+      json.should include('username')
+      json.should include('connected_to_ids')
+      json.should_not include('phone_number')
+      json.should_not include('pin')
     end
   end
 end
