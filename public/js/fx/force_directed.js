@@ -1,7 +1,7 @@
 // TODO: lots of refactoring
 var graph;
 
-function myGraph(el) {
+function myGraph(el, opts) {
   // Add and remove elements on the graph object
   this.addNode = function (node) {
     nodes.push({
@@ -73,8 +73,8 @@ function myGraph(el) {
   };
 
   // set up the D3 visualisation in the specified element
-  var w = 1200,
-      h = 700;
+  var w = opts.width,
+      h = opts.height;
 
   var vis = d3.select(el)
     .append('svg:svg')
@@ -170,11 +170,12 @@ var nodeCount   = 0,
     linkCount   = 0,
     totalScores = 0;
 
-function initGraph(data) {
-  $('#force-directed .visualization-header').text('Mingle Map');
-  graph = new myGraph('#force-directed .visualization-body');
+function initGraph(data, opts) {
+  graph = new myGraph('#force-directed .visualization-body', opts);
   updateGraph(data);
 }
+
+
 
 function sizesChanged(data) {
   var sum = 0;

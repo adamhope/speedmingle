@@ -3,5 +3,7 @@ setInterval(function () {
 }, 2000);
 
 $(document).ready(function() {
-  $.getJSON('/participants/links', initGraph);
+  $.getJSON('/participants/links', function(data) {
+    initGraph(data, {width: window.innerWidth, height: window.innerHeight});
+  });
 });
