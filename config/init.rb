@@ -8,7 +8,7 @@ configure :development do
   set :db_uri, 'mongodb://localhost/speedmingle-dev'
   set :auth_username, ''
   set :auth_password, ''
-  set :burst_api_url, ENV['BURST_API_URL']
+  set :burst_api_url, ENV['BURST_API_URL'] || "foo"
   set :burst_api_key, ENV['BURST_API_KEY']
   set :burst_api_secret, ENV['BURST_API_SECRET']
   set :burst_caller_id, ENV['BURST_CALLER_ID']
