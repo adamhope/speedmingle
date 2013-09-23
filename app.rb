@@ -86,16 +86,12 @@ get '/sms/dispatch/' do
   end
 end
 
-get '/fx/scoreboard' do
-  slim :'fx/scoreboard'
+get '/fx/:viz' do |v|
+  slim :"fx/#{v}"
 end
 
-get '/fx/swarm' do
-  slim :'fx/swarm'
-end
-
-get '/fx/connections' do
-  slim :'fx/connections'
+get '/info/:words' do |w|
+  slim :"info/#{w}"
 end
 
 get '/sample_data/participants' do
