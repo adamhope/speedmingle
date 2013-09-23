@@ -18,9 +18,9 @@ end
 participant_service = ParticipantService.new
 if settings.production?
   burst_sender = BurstSmsSender.new(
-    api_url:settings.burst_api_url, 
-    api_key: settings.burst_api_key, 
-    api_secret: settings.burst_api_secret, 
+    api_url:settings.burst_api_url,
+    api_key: settings.burst_api_key,
+    api_secret: settings.burst_api_secret,
     caller_id: settings.burst_caller_id)
   sms_service = SmsService.new(burst_sender, participant_service)
 else
@@ -84,10 +84,6 @@ get '/sms/dispatch/' do
   else
     sms_service.register(params["mobile"], params["response"])
   end
-end
-
-get '/fx/leaderboard' do
-  slim :'fx/leaderboard'
 end
 
 get '/fx/scoreboard' do
