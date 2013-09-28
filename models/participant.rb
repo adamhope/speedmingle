@@ -41,4 +41,8 @@ class Participant
     end
     { nodes: nodes, links: links, totalDonation: 10,  nodeCount: 0, linkCount: 315 }
   end
+
+  def self.bubbles
+    Participant.all.map { |p| { name: p.username, value:p.score + 1 } }
+  end
 end

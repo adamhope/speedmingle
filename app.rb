@@ -48,6 +48,11 @@ get '/participants/links' do
   Participant.links.to_json
 end
 
+get '/participants/bubbles' do
+  content_type :json
+  Participant.bubbles.to_json
+end
+
 # Return a specific participant, using it's PIN
 get '/participants/:pin' do |pin|
   protected!
