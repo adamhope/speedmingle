@@ -1,3 +1,4 @@
+require "sinatra/reloader" if development?
 require 'json'
 require 'slim'
 require 'sass/plugin/rack'
