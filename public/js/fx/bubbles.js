@@ -12,32 +12,37 @@ var bubble = function(data, opts) {
       .size([w, h])
       .padding(1.5);
 
-  var svg = d3.select("#bubbles").append("svg")
-      .attr("width", w)
-      .attr("height", h)
-      .attr("class", "bubble");
+  var nodes = bubble.nodes({children: data})
 
-  var display_pack = function(root) {
-    var node = svg.selectAll(".node")
-        .data(bubble.nodes(root)
-        .filter(function(d) { return !d.children; }))
-      .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-      .style("fill", function(d) { return generate_color(); })
-
-    node.append("circle").attr("r", function(d) { return d.r; });
-
-    node.append("text")
-        .attr("dy", ".3em")
-        .style("text-anchor", "middle")
-      .style("fill","black")
-        .text(function(d) { return d.name; });
-  }
-
-  var generate_color = function() {
-    return ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+  this.addNode = function(node) {
+    nodes.push(node);
   };
 
-  display_pack({children: data});
+  this.getNodes = function() {
+    return {children: nodes};
+  };
+
+  this.render = function() {    
+    var svg = d3.select("#bubbles").append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("class", "bubble");
+    
+    var node = svg.selectAll(".node")
+      .data(nodes.filter(function(d) { return !d.children; }));
+      
+    var nodeEnter = node.enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .append("circle").attr("r", function(d) { return d.r; });
+  }
+
+  this.run = function(data) {
+    data.forEach(function(node) { 
+      this.addNode(node);
+    });
+
+    this.render();
+  };
+  this.run(data);
 };
