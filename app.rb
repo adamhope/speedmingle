@@ -91,6 +91,10 @@ get '/sms/dispatch/' do
   end
 end
 
+get '/dashboard' do
+  slim :"dashboard"
+end
+
 get '/fx/:viz' do |v|
   slim :"fx/#{v}"
 end
