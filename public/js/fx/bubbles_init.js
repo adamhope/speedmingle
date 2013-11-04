@@ -1,5 +1,5 @@
 var bubbleChart = function() {
-  var graph = new bubble({width: window.innerWidth, height: window.innerHeight});
+  var graph = new bubble({width: $(".visualization").width(), height: $(".visualization").innerHeight() });
 
   $.getJSON('/participants/bubbles', function(data) {
     graph.init(data);
