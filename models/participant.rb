@@ -39,10 +39,10 @@ class Participant
         links << { source: v, target: p.id } if nodes.any? { |n| n[:id] == v }
       end
     end
-    { nodes: nodes, links: links, totalDonation: 10,  nodeCount: 0, linkCount: 315 }
+    { nodes: nodes, links: links, totalDonation: 10,  nodeCount: Participant.count, linkCount: links.length }
   end
 
   def self.bubbles
-    Participant.all.map { |p| { name: p.username, value:p.score + 1 } }
+    Participant.all.map { |p| { name: p.username, value:p.score + 1, id: p.id } }
   end
 end

@@ -1,12 +1,19 @@
 var bubbleChart = function() {
+  var graph = new bubble({width: window.innerWidth, height: window.innerHeight});
+
   $.getJSON('/participants/bubbles', function(data) {
-    console.log(data);
-    bubble(data, {width: window.innerWidth, height: window.innerHeight});
+    graph.init(data);
   });
+
+  setInterval(function () {
+    $.getJSON('/participants/bubbles', graph.update);
+  }, 2000);
 };
 
 $(document).ready(function() {
   bubbleChart();
 });
+
+
 
 
