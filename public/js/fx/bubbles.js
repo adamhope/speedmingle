@@ -12,45 +12,52 @@ function bubble(opts) {
       .size([w, h])
       .padding(1.5);
 
-  var nodes2 = [];
+  var nodes = [];
 
-  
   var svg = d3.select("#bubbles").append("svg:svg")
     .attr("width", w)
     .attr("height", h)
     .attr("class", "bubble");
 
   var addNode = function(node) {
-    var nodePresent = _.findWhere(nodes2, {id: node.id})
+    var nodePresent = _.findWhere(nodes, {id: node.id})
     if (nodePresent !== undefined) {
-      nodePresent = node;
+      updateNode(node);
     } else {
-      nodes2.push(node);
+      node.color = generateColor();
+      nodes.push(node);
     }
   };
 
-  var getNodes = function() {
-    var copiedNodes = $.map(nodes2, function (obj) {
-        return $.extend(true, {}, obj);
-    });
-    return { 
-      children: copiedNodes
-    };
+  var updateNode = function(node) {
+    return _.chain(nodes).findWhere({id: node.id}).extend(node).value()
+  };
+
+  var generateColor = function() {
+    return ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
   };
 
   var render = function() {  
-    var nodes = bubble.nodes(getNodes())  
 
     var node = svg.selectAll(".node")
-      .data(nodes.filter(function(d) { return !d.children; }));
+      .data(bubble.nodes({ children: nodes }).filter(function(d) { return !d.children; }));
       
     node.enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .append("circle")
         .attr("r", function(d) { return d.r; })
-        .style("fill", function(d) { return "red"; });
+        .style("fill", function(d) { return d.color; })
+        .attr('stroke', function(d) { return 'red'; })
+        .attr('stroke-opacity', 0.8)
+        .attr('stroke-width', 2);
 
+    // text
+    node.append("text")
+      .attr("dy", ".3em")
+      .style("text-anchor", "middle")
+      .style("fill","black")
+      .text(function(d) { return d.name; });
 
     // transitions
     node.transition()
@@ -63,13 +70,6 @@ function bubble(opts) {
       .attr("r", function (d) { return d.r; })
   }
 
-  var update = function(data) {
-    data.forEach(function(node) {
-      addNode(node);
-    });
-    render();
-  };
-
   var init = function(data) {
     data.forEach(function(node) {
       addNode(node);
@@ -78,8 +78,6 @@ function bubble(opts) {
   };
 
   return {
-    render: render,
-    update: update,
     init: init
   }
 }
