@@ -1,5 +1,7 @@
 class ParticipantService
 
+  require 'faker'
+
   def register(phone_number, username)
     if participant = Participant.find_by_phone_number(phone_number)
       raise SpeedmingleErrors::AlreadyRegistered.new(participant: participant)
@@ -26,5 +28,17 @@ class ParticipantService
     else
       raise SpeedmingleErrors::RegistrationNeeded.new
     end
+  end
+
+  def connect_random
+    participant_from = Participant.first(:offset => rand(Participant.count))
+    participant_to = Participant.first(:offset => rand(Participant.count))
+    participant_to.connect_from(participant_from)
+  end
+
+  def register_random
+    phone_number = Faker::PhoneNumber.phone_number
+    username = Faker::Name.name
+    register(phone_number, username)
   end
 end
