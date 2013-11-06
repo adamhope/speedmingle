@@ -6,7 +6,7 @@ var bubbleChart = function() {
   });
 
   setInterval(function () {
-    $.getJSON('/participants/bubbles', graph.update);
+    $.getJSON('/participants/bubbles', graph.init);
   }, 2000);
 };
 
