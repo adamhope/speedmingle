@@ -44,12 +44,23 @@ function bubble(opts) {
     var node = svg.selectAll(".node")
       .data(nodes.filter(function(d) { return !d.children; }));
       
-    var nodeEnter = node.enter().append("g")
+    node.enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .append("circle")
         .attr("r", function(d) { return d.r; })
         .style("fill", function(d) { return "red"; });
+
+
+    // transitions
+    node.transition()
+      .duration(1000)
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+
+    node.select("circle")
+      .transition()
+      .duration(1000)
+      .attr("r", function (d) { return d.r; })
   }
 
   var update = function(data) {
