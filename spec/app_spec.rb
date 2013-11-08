@@ -35,7 +35,7 @@ describe 'Speedmingle' do
     end
 
     it "connects two participants" do
-      p = { from_phone_number: @p1.phone_number, to_pin: @p2.pin }.to_json
+      p = { from: @p1.phone_number, to: @p2.pin }.to_json
       post '/participants/connect', p, {'Content-Type' => 'application/json'}
       @p2.reload.connected_to_ids.should include(@p1.id)
     end
