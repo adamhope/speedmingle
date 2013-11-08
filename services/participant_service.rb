@@ -36,9 +36,13 @@ class ParticipantService
     participant_to.connect_from(participant_from)
   end
 
-  def register_random
-    phone_number = Faker::PhoneNumber.phone_number
-    username = Faker::Name.name
-    register(phone_number, username)
+  def register_random(count)
+    created = []
+    count.to_i.times do
+      phone_number = Faker::PhoneNumber.phone_number
+      username = Faker::Name.name
+      created << register(phone_number, username)
+    end
+    created
   end
 end

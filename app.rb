@@ -53,19 +53,20 @@ get '/participants/bubbles' do
   Participant.bubbles.to_json
 end
 
-get '/participants/random' do
-  # protected!
+post '/participants/random' do
+  protected!
   content_type :json
-  p = participant_service.register_random
-  if p.errors.empty?
-    p.to_json
+  data = JSON.parse request.body.read
+  ps = participant_service.register_random(data["count"])
+  if !ps.empty?
+    ps.to_json
   else
-    error 400, p.errors.to_json
+    error 400
   end
 end
 
 get '/participants/connect_random' do
-  # protected!
+  protected!
   content_type :json
   p = participant_service.connect_random
   if p.errors.empty?

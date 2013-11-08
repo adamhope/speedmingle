@@ -1,0 +1,16 @@
+nav.navbar.navbar-default.navbar-static-top[role="navigation" ng-controller="ParticipantsController"]
+  a.navbar-brand href="#"
+    | Debug Tools
+  form.navbar-form.navbar-left
+    .form-group
+      button.btn.btn-default [type="submit" ng-click="save_random(1)"] 
+        | Add 1 randoms
+      button.btn.btn-default [type="submit" ng-click="save_random(5)"] 
+        | Add 5 randoms
+      button.btn.btn-default [type="submit" ng-click="save_random(20)"] 
+        | Add 20 randoms
+
+css:
+  .dashboard {
+    top:    50px;
+  }

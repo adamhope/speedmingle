@@ -20,6 +20,19 @@
       .col-lg-1
         button.btn.btn-primary [ng-click="save(participant)"] Add
 
+  .page-header
+    p.lead Add random player to the game
+
+  #add.form-horizontal
+    #errors.row
+    .form-group
+      .col-lg-2
+        button.btn.btn-primary [ng-click="save_random(1)"] Add 1 random players
+      .col-lg-2
+        button.btn.btn-primary [ng-click="save_random(5)"] Add 5 random players
+      .col-lg-2
+        button.btn.btn-primary [ng-click="save_random(20)"] Add 20 random players
+
 
   .page-header
     p.lead Current players in the game

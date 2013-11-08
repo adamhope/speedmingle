@@ -18,6 +18,10 @@ services.factory('Participant', function(Restangular){
 // CONTROLLERS
 
 var ParticipantsController = app.controller("ParticipantsController", function($scope, Participant, flash){
+  $scope.init = function() {
+    $scope.participants = Participant.getList();
+  }
+
   $scope.save = function (participant) {
     Participant.all("register").post(participant).then(function(data) {
       flash.success = 'Thank you. Participant created.';
@@ -26,9 +30,14 @@ var ParticipantsController = app.controller("ParticipantsController", function($
       flash.error = 'Error creating Participant.';
     });
   }
-  
-  $scope.init = function() {
-    $scope.participants = Participant.getList();
+
+  $scope.save_random = function(count) {
+    Participant.all("random").post({"count": count}).then(function(data) {
+      flash.success = 'Thank you. ' + count + ' random participants created.';
+      $scope.participants = Participant.getList();
+    }, function(error) {
+      flash.error = 'Error creating ' + count + ' random participants.';      
+    });
   }
   
   $scope.connect = function(from_participant, to_participant) {

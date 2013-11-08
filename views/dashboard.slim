@@ -1,3 +1,4 @@
+== render :slim, :'fx/debug_tools' if params["debug"] == "true"
 .dashboard
   == render :slim, :'fx/bubbles'
   == render :slim, :'info/scoreboard'
