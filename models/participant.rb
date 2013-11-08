@@ -9,9 +9,9 @@ class Participant
   key :connected_to_ids, Array
   before_create ->{self.pin = generate_pin}
 
-  def  serializable_hash(options = {})
-    super({ only: [:id, :username, :connected_to_ids] }.merge(options))
-  end
+  # def  serializable_hash(options = {})
+  #   super({ only: [:id, :username, :connected_to_ids] }.merge(options))
+  # end
 
   def score
     connected_to_ids.length
