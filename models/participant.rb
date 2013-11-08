@@ -9,11 +9,6 @@ class Participant
   key :connected_to_ids, Array
   before_create ->{self.pin = generate_pin}
 
-
-  def serializable_hash(options = {})
-    super({ only: [:id, :username, :connected_to_ids] }.merge(options))
-  end
-
   def score
     connected_to_ids.length
   end
@@ -29,6 +24,10 @@ class Participant
   def connect_from(participant)
     self.push_uniq(connected_to_ids: participant.id)
     self.reload
+  end
+
+  def as_json(options={})
+    super(methods: :score)
   end
 
   def self.links 

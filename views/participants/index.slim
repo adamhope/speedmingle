@@ -1,9 +1,25 @@
-.container
+.container [ng-controller="ParticipantsController" ng-init="init()"]
   .page-header
     h1 Participants
     p.lead Add players to the game
 
-  == render :slim, :'participants/add_form'
+
+  .dom [active-class="in alert fade" flash-alert=""]
+    span.alert-message 
+      | {{ flash.message }}
+
+  #add.form-horizontal
+    #errors.row
+      .col-lg-12
+    .form-group
+      .col-lg-4
+        input.form-control [placeholder="Username" type="text" ng-model="participant.username" ]
+    .form-group
+      .col-lg-4
+        input.form-control [placeholder="Phone Number" type="tel" ng-model="participant.phone_number"  ]
+      .col-lg-1
+        button.btn.btn-primary [ng-click="save(participant)"] Add
+
 
   .page-header
     p.lead Current players in the game
@@ -18,24 +34,18 @@
         th Score
         th Connect
     tbody
-    - for participant in @participants
-      tr
-        td.id #{participant._id}
-        td.username #{participant.username}
-        td.phonenumber #{participant.phone_number}
-        td.pin #{participant.pin}
-        td.score #{participant.score}
+      tr [ng-repeat="participant in participants"]
+        td.id 
+          | {{ participant.id }}
+        td.username 
+          | {{ participant.username }}
+        td.phonenumber 
+          | {{ participant.phone_number }}
+        td.pin 
+          | {{ participant.pin }}
+        td.score 
+          | {{ participant.score }}
         td.connect-to
-          input.form-control.input-sm[placeholder="ID"]
+          input.form-control.input-sm[placeholder="ID" ng-model="to_participant.pin"]
         td
-          button.connect.btn.btn-primary.btn-sm Connect
-
-
-
-javascript:
-  $(".connect").click(function(e) {
-    e.preventDefault();
-    var connectFrom = $(this).closest('tr').find('td.phonenumber').text();
-    var connectTo = $(this).closest('tr').find('td input').val();
-    connectParticipants(connectFrom, connectTo);
-  });
+          button.connect.btn.btn-primary.btn-sm [ng-click="connect(participant, to_participant)"] Connect

@@ -101,7 +101,7 @@ end
 post '/participants/connect', :provides => :json do
   protected!
   data = JSON.parse request.body.read
-  participant_service.connect(data["from_phone_number"], data["to_pin"])
+  participant_service.connect(data["from"], data["to"])
 end
 
 # /sms/dispatch/?mobile=1234567890&response=Fred&message_id=0

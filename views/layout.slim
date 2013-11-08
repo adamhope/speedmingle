@@ -1,13 +1,18 @@
 doctype
-html
+html(ng-app='speedmingle')
   head
     title Speed Mingle
     link href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css"
     link href="/stylesheets/main.css" rel="stylesheet" type="text/css"
     // Business in the front
     script src="/js/lib/jquery.min.js"
+    script src="/js/lib/angular.min.js"
+    script src="/js/lib/angular-flash.min.js"
+    script src="/js/lib/restangular.min.js"
     script src="/js/lib/bootstrap.min.js"
     script src="/js/lib/underscore.min.js"
     script src="/js/participants/participants.js"
+    // Our Angular stuff
+    script src="/js/angular/app.js"
   body
     == yield
