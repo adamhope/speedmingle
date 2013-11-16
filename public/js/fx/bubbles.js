@@ -46,16 +46,13 @@ function bubble(opts) {
       .text(function(d) { return d.name; });
 
     // transitions
-    nodeEnter.transition()
-      .attr("r", function(d) { return d.r; });
+    node.select('circle').transition()
+      .duration(transitionDuration)
+      .attr("r", function(d) { console.log("Updating radius"); return d.r; });
 
     node.transition()
       .duration(transitionDuration)
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-
-    node.select('circle').transition()
-      .duration(transitionDuration)
-      .attr("r", function (d) { return d.r; })
   }
 
   var randomOffScreenPosition = function() {
