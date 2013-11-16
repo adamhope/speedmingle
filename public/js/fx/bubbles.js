@@ -27,35 +27,39 @@ function bubble(opts) {
     var packedBubbleLayout = bubble.nodes({ children: data })
       .filter(function(d) { return !d.children; });
 
-    var node = svg.selectAll(".node")
+    var nodes = svg.selectAll(".node")
       .data(packedBubbleLayout);
       
-    node.enter().append("g")
+    nodes.enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .append("circle")
         .style("fill", function(d) { return generateColor(); })
-        .attr('stroke', function(d) { return 'red'; })
-        .attr('stroke-opacity', 0.8)
-        .attr('stroke-width', 2)
         .attr("r", 0)
         .transition()
           .attr("r", function(d) { return d.r; });
-        
+    
     // text
-    node.append("text")
+    nodes.append("text")
       .attr("dy", ".3em")
       .style("text-anchor", "middle")
       .style("fill","black")
       .text(function(d) { return d.name; });
 
+    var circles = nodes.select('circle')
+
+    // circles.attr('stroke', function(d) { return 'red'; })
+    //   .attr('stroke-opacity', 0.8)
+    //   .attr('stroke-width', 2)    
+
     // transitions
-    node.transition()
+    nodes.transition()
       .duration(1000)
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
 
-    node.select("circle")
-      .transition()
+    
+    
+    circles.transition()
       .duration(1000)
       .attr("r", function (d) { return d.r; })
   }
