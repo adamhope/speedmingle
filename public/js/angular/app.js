@@ -27,7 +27,7 @@ var ParticipantsController = app.controller("ParticipantsController", function($
       flash.success = 'Thank you. Participant created.';
       $scope.participants = Participant.getList();
     }, function(error) {
-      flash.error = 'Error creating Participant.';
+      flash.error = 'Error creating participant.';
     });
   }
 
@@ -44,12 +44,21 @@ var ParticipantsController = app.controller("ParticipantsController", function($
     var req = JSON.stringify({ 
       "from": from_participant.phone_number,
       "to": to_participant.pin
-    })
+    });
     Participant.all("connect").post(req).then(function(data) {
       flash.success = 'Thank you. Participant connected.';
       $scope.participants = Participant.getList();
     }, function(error) {
-      flash.error = "Error connecting Participant."
+      flash.error = "Error connecting participant."
+    });
+  }
+
+  $scope.connect_random = function() {
+    Participant.one("connect_random").get().then(function(data) {
+      flash.success = 'Thank you. Random participant connected.';
+      $scope.participants = Participant.getList();
+    }, function(error) {
+      flash.error = "Error connecting random participant."
     });
   }
 });
