@@ -46,6 +46,6 @@ class Participant
   end
 
   def self.bubbles
-    Participant.all.map { |p| { name: p.username, value:p.score + 1, id: p.id } }
+    Participant.all.map { |p| { name: p.username, value: p.score + 1, id: p.id } }
   end
 end
