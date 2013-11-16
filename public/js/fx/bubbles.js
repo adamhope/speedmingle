@@ -6,10 +6,11 @@ function bubble(opts) {
       limit=5000,
       format = d3.format(",d"),
       color = d3.scale.category20(),
-      transitionDuration = 2000;
+      transitionDuration = 2000,
+      t0 = Date.now();
 
   var bubble = d3.layout.pack()
-      .value(function(d) { return d.value; })
+      .value(function(d) { return d.score; })
       .sort(null)
       .size([w, h])
       .padding(2.5);
@@ -38,21 +39,26 @@ function bubble(opts) {
       .attr("r", 0)
       .attr('stroke', function(d) { return d3.rgb(d.color).brighter(1); })
       .attr('stroke-width', 2);
-
       
     nodeEnter.append("text")
       .attr("dy", ".3em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.name; });
+      .text(function(d) { return d.score; });
+
+    d3.timer(function() {
+      var delta = (Date.now() - t0);
+      svg.selectAll("circle, text").attr("transform", "rotate(" + (delta/100) + ")");
+      // svg.attr("transform", "rotate(" + (delta/100) + ")");
+    });
 
     // transitions
     node.select('circle').transition()
       .duration(transitionDuration)
-      .attr("r", function(d) { console.log("Updating radius"); return d.r; });
+      .attr("r", function(d) { return d.r; });
 
     node.transition()
       .duration(transitionDuration)
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; }) 
+
   }
 
   var randomOffScreenPosition = function() {
@@ -68,4 +74,3 @@ function bubble(opts) {
     render: render
   }
 }
-
