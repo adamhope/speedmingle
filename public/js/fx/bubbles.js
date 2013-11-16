@@ -46,11 +46,14 @@ function bubble(opts) {
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .append("circle")
-        .attr("r", function(d) { return d.r; })
         .style("fill", function(d) { return d.color; })
         .attr('stroke', function(d) { return 'red'; })
         .attr('stroke-opacity', 0.8)
-        .attr('stroke-width', 2);
+        .attr('stroke-width', 2)
+        .attr("r", 0)
+        .transition()
+          .attr("r", function(d) { return d.r; });
+        
 
     // text
     node.append("text")
