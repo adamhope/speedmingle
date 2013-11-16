@@ -5,7 +5,8 @@ function bubble(opts) {
   var diameter = 600 - 30,
       limit=5000,
       format = d3.format(",d"),
-      color = d3.scale.category20c();
+      color = d3.scale.category20c(),
+      transitionDuration = 2000;
 
   var bubble = d3.layout.pack()
       .value(function(d) { return d.value; })
@@ -22,41 +23,44 @@ function bubble(opts) {
     var packedBubbleLayout = bubble.nodes({ children: data })
       .filter(function(d) { return !d.children; });
 
-    var nodes = svg.selectAll(".node")
+    var node = svg.selectAll(".node")
       .data(packedBubbleLayout);
       
-    nodes.enter().append("g")
+    var nodeEnter = node.enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { 
-        var spawnPosition = randomOffScreenPosition();
-        return "translate(" + spawnPosition.x * 2 + "," + spawnPosition.y * 2 + ")"; 
-      })
-      .append("circle")
-        .style("fill", function(d) { return generateColor(); })
-        .attr("r", 0)
-        .transition()
-          .attr("r", function(d) { return d.r; });
-    
-    // text
-    nodes.append("text")
+
+    nodeEnter.append("circle")
+      .style("fill", function(d) { return generateColor(); })
+      .attr("r", 0)
+
+    nodeEnter.attr("transform", function(d) { 
+      var spawnPosition = randomOffScreenPosition();
+      return "translate(" + spawnPosition.x * 2 + "," + spawnPosition.y * 2 + ")"; 
+    })
+    // .attr()
+      
+    nodeEnter.append("text")
       .attr("dy", ".3em")
       .style("text-anchor", "middle")
       .style("fill","black")
       .text(function(d) { return d.name; });
 
-    var circles = nodes.select('circle')
-
-    // circles.attr('stroke', function(d) { return 'red'; })
-    //   .attr('stroke-opacity', 0.8)
-    //   .attr('stroke-width', 2)    
+    
 
     // transitions
-    nodes.transition()
-      .duration(1000)
+  
+    nodeEnter.transition()
+      .attr("r", function(d) { return d.r; });
+
+    // adjust circle position
+    node.transition()
+      .duration(transitionDuration)
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
 
-    circles.transition()
-      .duration(1000)
+    var circle = node.select('circle')
+
+    circle.transition()
+      .duration(transitionDuration)
       .attr("r", function (d) { return d.r; })
   }
 

@@ -5,7 +5,7 @@ var bubbleChart = function() {
   
   var graph = new bubble({width: $(".visualization").width(), height: $(".visualization").innerHeight() });
   render()
-  setInterval(render, 2000);
+  setInterval(render, 3000);
 };
 
 $(document).ready(function() {
