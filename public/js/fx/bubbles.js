@@ -5,14 +5,14 @@ function bubble(opts) {
   var diameter = 600 - 30,
       limit=5000,
       format = d3.format(",d"),
-      color = d3.scale.category20c(),
+      color = d3.scale.category20(),
       transitionDuration = 2000;
 
   var bubble = d3.layout.pack()
       .value(function(d) { return d.value; })
       .sort(null)
       .size([w, h])
-      .padding(1.5);
+      .padding(2.5);
 
   var svg = d3.select("#bubbles").append("svg:svg")
     .attr("width", w)
@@ -28,45 +28,35 @@ function bubble(opts) {
       
     var nodeEnter = node.enter().append("g")
       .attr("class", "node")
+      .attr("transform", function(d) { 
+        var spawnPosition = randomOffScreenPosition();
+        return "translate(" + spawnPosition.x * 2 + "," + spawnPosition.y * 2 + ")"; 
+      });
 
     nodeEnter.append("circle")
-      .style("fill", function(d) { return generateColor(); })
+      .style("fill", function(d) { return d.color = color(d.name); })
       .attr("r", 0)
+      .attr('stroke', function(d) { return d3.rgb(d.color).brighter(1); })
+      .attr('stroke-width', 2);
 
-    nodeEnter.attr("transform", function(d) { 
-      var spawnPosition = randomOffScreenPosition();
-      return "translate(" + spawnPosition.x * 2 + "," + spawnPosition.y * 2 + ")"; 
-    })
-    // .attr()
       
     nodeEnter.append("text")
       .attr("dy", ".3em")
       .style("text-anchor", "middle")
-      .style("fill","black")
       .text(function(d) { return d.name; });
 
-    
-
     // transitions
-  
     nodeEnter.transition()
       .attr("r", function(d) { return d.r; });
 
-    // adjust circle position
     node.transition()
       .duration(transitionDuration)
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
 
-    var circle = node.select('circle')
-
-    circle.transition()
+    node.select('circle').transition()
       .duration(transitionDuration)
       .attr("r", function (d) { return d.r; })
   }
-
-  var generateColor = function() {
-    return ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
-  };
 
   var randomOffScreenPosition = function() {
     return {
@@ -76,8 +66,7 @@ function bubble(opts) {
       4: { x: w, y: _.random(0, h) }
     }[_.sample([1, 2, 3, 4])]
   }
-
-
+  
   return {
     render: render
   }
