@@ -6,16 +6,24 @@
 // Party in the back
 
 javascript:
-  var updateScoreboard = function (data) {
-    var ctx = $('#scoreboard');
-    $('.info-body', ctx).html('<ol/>');
-    var topScore = data[0].connected_to_ids.length
-    $(data).each(function (index, p) {
-      p.score = p.connected_to_ids.length
-      $('ol', ctx).append('<li><div class="score-bar" style="width:' + p.score / topScore * 100 + '%;"></div><b class="score"><span>' + p.score + '</span></b>' + p.username + '</li>');
-    });
+  var scoreboard = function() {
+    var render = function () { 
+      $.getJSON('/participants', updateScoreboard);
+    }
+    var updateScoreboard = function (data) {
+      var ctx = $('#scoreboard');
+      $('.info-body', ctx).html('<ol/>');
+      var topScore = data[0].connected_to_ids.length
+      $(data).each(function (index, p) {
+        p.score = p.connected_to_ids.length
+        $('ol', ctx).append('<li><div class="score-bar" style="width:' + p.score / topScore * 100 + '%;"></div><b class="score"><span>' + p.score + '</span></b>' + p.username + '</li>');
+      });
+    };
+    
+    render()
+    setInterval(render, 2000);
   };
 
   $(document).ready(function() {
-    $.getJSON('/participants', updateScoreboard);
+    scoreboard();
   });

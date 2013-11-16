@@ -11,7 +11,3 @@ var bubbleChart = function() {
 $(document).ready(function() {
   bubbleChart();
 });
-
-
-
-
