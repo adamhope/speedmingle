@@ -103,4 +103,35 @@ describe 'The participant model' do
       json.should_not include('pin')
     end
   end
+
+  describe '#hints' do
+    before do
+      @participant_a = Participant.create!(phone_number: '0411111111', username: 'Fred')
+      @participant_b = Participant.create!(phone_number: '0422222222', username: 'Dom')
+      @participant_c = Participant.create!(phone_number: '0433333333', username: 'Andrew')
+      @participant_a.connect_from(@participant_b) # Fred connects with Dom
+    end
+
+    context 'participant has connected with everyone' do
+      it 'returns an empty list' do
+        @participant_a.connect_from(@participant_c) # Fred connects with Andrew
+        @participant_a.hints.should be_empty
+      end
+    end
+
+    context 'participant has another participant they havent connected with' do
+      it 'returns a list with  the participant they havent connected with' do
+        @participant_a.hints.should == [@participant_c]
+      end
+    end
+
+    context 'participant has 4 other participant they havent connected with' do
+      it "returns maximum 3 other participants" do
+        Participant.create!(phone_number: '0444444444', username: 'P1')
+        Participant.create!(phone_number: '0455555555', username: 'P2')
+        Participant.create!(phone_number: '0466666666', username: 'P3')
+        @participant_a.hints.length.should == 3
+      end
+    end
+  end
 end

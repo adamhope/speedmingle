@@ -50,6 +50,12 @@ class SmsService
     end
   end
 
+  def broadcast_hints
+    Participant.all.each do |p|
+      send_hint(p)
+    end
+  end
+
   private
 
   def send_in_the_lead(participant)
@@ -60,5 +66,12 @@ class SmsService
     diff_score = top_score - participant.score + 1
     n_connections = diff_score > 1 ? "#{diff_score} connections" : "#{diff_score} connection"
     @sender.send_sms(participant.phone_number, "#{participant.username}, you are #{n_connections} away from the lead.")
+  end
+
+  def send_hint(participant)
+    hints_usernames = participant.hints.map(&:username)
+    if !hints_usernames.empty?
+      @sender.send_sms(participant.phone_number, "You haven't connected with #{hints_usernames.to_sentence}. Try and find them!")
+    end
   end
 end

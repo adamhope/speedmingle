@@ -61,6 +61,31 @@ describe 'SmsService' do
     end
   end
 
+  describe '#broadcast_hints' do
+    before do
+      @participant = Participant.create!(phone_number: "0400000", username: 'A', connected_to_ids: [])
+    end
+
+    context '1 participant' do
+      it 'doesnt send you a hint message' do
+        sender.should_not_receive(:send_sms)
+        sms_service.broadcast_hints
+      end
+    end
+
+    context '2 participants' do
+      before do
+        @participant2 = Participant.create!(phone_number: "0400001", username: 'B', connected_to_ids: [])
+      end
+
+      it 'sends a hint message suggesting to find participant2' do
+        sender.should_receive(:send_sms).with(@participant.phone_number, "You haven't connected with #{@participant2.username}. Try and find them!")
+        sender.should_receive(:send_sms).with(@participant2.phone_number, "You haven't connected with #{@participant.username}. Try and find them!")
+        sms_service.broadcast_hints
+      end
+    end
+  end
+
   describe '#broadcast_ranking' do
     context '1 participant' do
       before do

@@ -30,6 +30,10 @@ class Participant
     self.reload
   end
 
+  def hints
+    Participant.where(:id.nin => connected_to_ids, :id.ne => id).limit(10).all.sample(3)
+  end
+
   def as_json(options={})
     super(methods: :score)
   end
