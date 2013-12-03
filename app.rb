@@ -82,13 +82,16 @@ get '/participants/hints/:pin' do |pin|
   Participant.where(pin: pin).first.hints.to_json
 end
 
+get '/participants/destroy_all' do
+  Participant.destroy_all
+end
+
 # Return a specific participant, using it's PIN
 get '/participants/:pin' do |pin|
   protected!
   content_type :json
   Participant.where(pin: pin).first.to_json
 end
-
 
 delete '/participants/:pin' do |pin|
   protected!

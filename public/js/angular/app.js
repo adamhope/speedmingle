@@ -61,4 +61,13 @@ var ParticipantsController = app.controller("ParticipantsController", function($
       flash.error = "Error connecting random participant."
     });
   }
+
+  $scope.destroy_all = function() {
+    Participant.one("destroy_all").get().then(function(data) {
+      flash.success = 'Thank you. Removed all participants.';
+      $scope.participants = Participant.getList();
+    }, function(error) {
+      flash.error = "Error connecting random participant."
+    })
+  }
 });
