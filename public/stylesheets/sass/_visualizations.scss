@@ -69,43 +69,6 @@
     font-size: 16px;
     font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
   }
-
-  .node {
-    font-size: 10px;
-    fill: #cbd6d3;
-  }
-
-  .node:hover {
-    fill: #1f77b4;
-  }
-
-  .link {
-    fill: none;
-    stroke: #1f77b4;
-    stroke-opacity: .4;
-    pointer-events: none;
-  }
-
-  .link.source, .link.target {
-    stroke-opacity: 1;
-    stroke-width: 2px;
-  }
-
-  .node.target {
-    fill: #d62728 !important;
-  }
-
-  .link.source {
-    stroke: #d62728;
-  }
-
-  .node.source {
-    fill: #a01522;
-  }
-
-  .link.target {
-    stroke: #a01522;
-  }
 }
 
 #bubbles {
@@ -123,5 +86,42 @@
   height: 0;
   width: 100%;
   padding-bottom: 56.25%
+}
+
+.node {
+  font-size: 10px;
+  fill: #cbd6d3;
+}
+
+.node:hover {
+  fill: #1f77b4;
+}
+
+.link {
+  fill: none;
+  stroke: #1f77b4;
+  stroke-opacity: .4;
+  pointer-events: none;
+}
+
+.link.source, .link.target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.node.target {
+  fill: #d62728 !important;
+}
+
+.link.source {
+  stroke: #d62728;
+}
+
+.node.source {
+  fill: #a01522;
+}
+
+.link.target {
+  stroke: #a01522;
 }
 
