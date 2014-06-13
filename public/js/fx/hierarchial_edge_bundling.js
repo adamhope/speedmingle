@@ -114,7 +114,7 @@ var packages = {
                 if (name.length) {
                     node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
                     node.parent.children.push(node);
-                    node.key = name.substring(i + 1).replace(/\s+/g,"-");
+                    node.key = name.substring(i + 1).replace(/\s+/g,"-").replace(/'/,"_");
                 }
             }
             return node;
