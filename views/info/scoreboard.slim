@@ -7,8 +7,8 @@
 
 javascript:
   var scoreboard = function() {
-    var render = function () { 
-      $.getJSON('/participants', updateScoreboard);
+    var render = function () {
+      return $.getJSON('/participants', updateScoreboard);
     }
     var updateScoreboard = function (data) {
       var ctx = $('#scoreboard');
@@ -19,9 +19,16 @@ javascript:
         $('ol', ctx).append('<li><div class="score-bar" style="width:' + p.score / topScore * 100 + '%;"></div><b class="score"><span>' + p.score + '</span></b>' + p.username + '</li>');
       });
     };
-    
+
     render()
-    setInterval(render, 2000);
+
+    setTimeout(function keepUpdate() {
+      render()
+        .always(function() {
+          setTimeout(keepUpdate, 3000);
+        });
+    }, 3000);
+
   };
 
   $(document).ready(function() {
