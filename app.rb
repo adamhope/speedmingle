@@ -53,6 +53,11 @@ get '/participants/bubbles' do
   Participant.bubbles.to_json
 end
 
+get '/participants/connections' do
+  content_type :json
+  Participant.connections.to_json
+end
+
 post '/participants/random' do
   protected!
   content_type :json

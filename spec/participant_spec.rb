@@ -134,4 +134,20 @@ describe 'The participant model' do
       end
     end
   end
+
+  describe '#connections' do
+    before do
+      @participant_a = Participant.create!(phone_number: '0411111111', username: 'Fred')
+      @participant_b = Participant.create!(phone_number: '0422222222', username: 'Dom')
+      @participant_c = Participant.create!(phone_number: '0433333333', username: 'Andrew')
+      @participant_a.connect_from(@participant_b)
+    end
+
+    it "returns a list with all the nodes" do
+      json = Participant.connections.to_json
+      json.should include('{"name":"Fred","size":1,"connect_from":["Dom"]}')
+      json.should include('{"name":"Dom","size":0,"connect_from":[]}')
+      json.should include('{"name":"Andrew","size":0,"connect_from":[]}')
+    end
+  end
 end
