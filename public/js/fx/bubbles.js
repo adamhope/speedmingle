@@ -26,12 +26,12 @@ function bubble(opts) {
 
     var node = svg.selectAll(".node")
       .data(packedBubbleLayout);
-      
+
     var nodeEnter = node.enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { 
+      .attr("transform", function(d) {
         var spawnPosition = randomOffScreenPosition();
-        return "translate(" + spawnPosition.x * 2 + "," + spawnPosition.y * 2 + ")"; 
+        return "translate(" + spawnPosition.x * 2 + "," + spawnPosition.y * 2 + ")";
       });
 
     nodeEnter.append("circle")
@@ -39,15 +39,15 @@ function bubble(opts) {
       .attr("r", 0)
       .attr('stroke', function(d) { return d3.rgb(d.color).brighter(1); })
       .attr('stroke-width', 2);
-      
+
     nodeEnter.append("text")
+      .attr("class", "count")
       .attr("dy", ".3em")
       .text(function(d) { return d.score; });
 
     d3.timer(function() {
       var delta = (Date.now() - t0);
       svg.selectAll("circle, text").attr("transform", "rotate(" + (delta/100) + ")");
-      // svg.attr("transform", "rotate(" + (delta/100) + ")");
     });
 
     // transitions
@@ -55,9 +55,14 @@ function bubble(opts) {
       .duration(transitionDuration)
       .attr("r", function(d) { return d.r; });
 
+    node.select('text').transition()
+      .duration(transitionDuration)
+      .text(function(d) { return d.score; });
+
     node.transition()
       .duration(transitionDuration)
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; }) 
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+
 
   }
 
@@ -69,7 +74,7 @@ function bubble(opts) {
       4: { x: w, y: _.random(0, h) }
     }[_.sample([1, 2, 3, 4])]
   }
-  
+
   return {
     render: render
   }

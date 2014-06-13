@@ -1,11 +1,17 @@
 var bubbleChart = function() {
-  var render = function () { 
-    $.getJSON('/participants/bubbles', graph.render);
+  var render = function () {
+    return $.getJSON('/participants/bubbles', graph.render);
   }
-  
+
   var graph = new bubble({width: $(".visualization").width(), height: $(".visualization").innerHeight() });
   render()
-  setInterval(render, 3000);
+
+  setTimeout(function keepUpdate() {
+    render()
+      .always(function() {
+        setTimeout(keepUpdate, 3000);
+      });
+  }, 3000);
 };
 
 $(document).ready(function() {
