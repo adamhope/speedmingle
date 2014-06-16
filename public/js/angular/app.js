@@ -1,7 +1,8 @@
 var app = angular.module('speedmingle',
   ['services',
    'angular-flash.service',
-   'angular-flash.flash-alert-directive'
+   'angular-flash.flash-alert-directive',
+   'ngAnimate'
   ]);
 
 app.config(function (flashProvider) {
@@ -72,15 +73,18 @@ var ParticipantsController = app.controller("ParticipantsController", function($
   }
 });
 
-app.controller('DashboardSlideCtrl', [function() {
+app.controller('DashboardSlideCtrl', ['$timeout', function(timeout) {
   var SLIDE_COUNT = 3;
+  var TIMEOUT = 5000;
   var self = this;
   var nth = 0;
+  var slides = ['bubble', 'connections', 'swarm'];
 
-  this.nthSlide = 0;
+  self.slide = slides[0];
 
-  setInterval(function() {
+  timeout(function switchSlide() {
     nth++;
-    this.nthSlide = nth % SLIDE_COUNT;
-  }, 5000);
+    self.slide = slides[nth % SLIDE_COUNT];
+    timeout(switchSlide, TIMEOUT);
+  }, TIMEOUT);
 }]);
