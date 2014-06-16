@@ -1,6 +1,6 @@
-var app = angular.module('speedmingle', 
+var app = angular.module('speedmingle',
   ['services',
-   'angular-flash.service', 
+   'angular-flash.service',
    'angular-flash.flash-alert-directive'
   ]);
 
@@ -36,12 +36,12 @@ var ParticipantsController = app.controller("ParticipantsController", function($
       flash.success = 'Thank you. ' + count + ' random participants created.';
       $scope.participants = Participant.getList();
     }, function(error) {
-      flash.error = 'Error creating ' + count + ' random participants.';      
+      flash.error = 'Error creating ' + count + ' random participants.';
     });
   }
-  
+
   $scope.connect = function(from_participant, to_participant) {
-    var req = JSON.stringify({ 
+    var req = JSON.stringify({
       "from": from_participant.phone_number,
       "to": to_participant.pin
     });
@@ -71,3 +71,16 @@ var ParticipantsController = app.controller("ParticipantsController", function($
     })
   }
 });
+
+app.controller('DashboardSlideCtrl', [function() {
+  var SLIDE_COUNT = 3;
+  var self = this;
+  var nth = 0;
+
+  this.nthSlide = 0;
+
+  setInterval(function() {
+    nth++;
+    this.nthSlide = nth % SLIDE_COUNT;
+  }, 5000);
+}]);

@@ -1,4 +1,13 @@
 == render :slim, :'fx/debug_tools' if params["debug"] == "true"
 .dashboard
-  == render :slim, :'fx/bubbles'
+  div[ng-controller="DashboardSlideCtrl as Dashboard"]
+    div[class="animate-switch-container" ng-switch on="Dashboard.nthSlide"]
+      div[class="animate-switch" ng-switch-when="0"]
+        == render :slim, :'fx/bubbles'
+      div[class="animate-switch" ng-switch-when="1"]
+        | some other
+      div[class="animate-switch" ng-switch-when="2"]
+        | some other
+
+
   == render :slim, :'info/scoreboard'
