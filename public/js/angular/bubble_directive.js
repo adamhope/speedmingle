@@ -5,6 +5,14 @@
     return {
       restrict: 'AE',
       link: function(scope, el, attr) {
+
+        var isDistoryed = false;
+
+
+        scope.$on('$destroy', function() {
+          isDistoryed = true;
+        });
+
         var render = function () {
           return http.get('/participants/bubbles').then(function(resp) {
             graph.render(resp.data);
@@ -18,11 +26,13 @@
         timeout(function keepUpdate() {
           render()
             .then(function() {
+              if (isDistoryed) { return; }
               timeout(keepUpdate, 3000);
             });
         }, 3000);
       }
     };
+;
 
   }])
 
