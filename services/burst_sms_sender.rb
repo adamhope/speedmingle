@@ -9,19 +9,18 @@ class BurstSmsSender
   end
 
   def send_sms(phone_number, message)
-    `curl #{uri(phone_number, message)}`
+    Net::HTTP.get_response(URI.parse(uri(phone_number, message)))
   end
 
   def uri(phone_number, message)
-    # message_with_plus = message.split(' ').join('+')
-    # url = @api_url.clone
-    # url << "messages.single"
-    # url << "?apikey=#{@api_key}"
-    # url << "&apisecret=#{@api_secret}"
-    # url << "&mobile=#{phone_number}"
-    # url << "&message=#{message_with_plus}"
-    # url << "&caller_id=#{@caller_id}"
-    # url
-    "#{@api_url}send-sms.json -u #{@api_key}:#{@api_secret} -d 'message=#{message}' -d to=#{phone_number}"
+    message_with_plus = message.split(' ').join('+')
+    url = @api_url.clone
+    url << "messages.single"
+    url << "?apikey=#{@api_key}"
+    url << "&apisecret=#{@api_secret}"
+    url << "&mobile=#{phone_number}"
+    url << "&message=#{message_with_plus}"
+    url << "&caller_id=#{@caller_id}"
+    url
   end
 end
