@@ -7,12 +7,12 @@ require 'require_all'
 
 configure :development do
   set :db_uri, 'mongodb://localhost/speedmingle-dev'
-  set :auth_username, ''
-  set :auth_password, ''
-  set :burst_api_url, ENV['BURST_API_URL'] || "foo"
-  set :burst_api_key, ENV['BURST_API_KEY']
-  set :burst_api_secret, ENV['BURST_API_SECRET']
-  set :burst_caller_id, ENV['BURST_CALLER_ID']
+  set :auth_username, 'admin'
+  set :auth_password, 'p@ssW0rd'
+  set :burst_api_url, 'https://api.transmitsms.com/'
+  set :burst_api_key, 'c69852c03eecbcf02e9387aae618091d'
+  set :burst_api_secret, 'twopenhouse'
+  set :burst_caller_id, '+61419741136'
 end
 
 configure :test do
@@ -22,13 +22,13 @@ configure :test do
 end
 
 configure :production do
-  set :db_uri, ENV['MONGOLAB_URI']
-  set :auth_username, ENV['SETTINGS_AUTH_USERNAME'] || 'needtobechanged'
-  set :auth_password, ENV['SETTINGS_AUTH_PASSWORD'] || 'needtobechanged'
-  set :burst_api_url, ENV['BURST_API_URL']
-  set :burst_api_key, ENV['BURST_API_KEY']
-  set :burst_api_secret, ENV['BURST_API_SECRET']
-  set :burst_caller_id, ENV['BURST_CALLER_ID']
+  set :db_uri, "mongodb://heroku:oQ8-04IDlmSQARfBpWsjbfEO30zEPcoA3ta4Czi7_PFLHewtI39ua-dK7SNzfrdZM38HbHb7jKbYlBhJtHwqCQ@kahana.mongohq.com:10073/app26455644"
+  set :auth_username, 'admin'
+  set :auth_password, 'p@ssW0rd'
+  set :burst_api_url, 'https://api.transmitsms.com/'
+  set :burst_api_key, 'c69852c03eecbcf02e9387aae618091d'
+  set :burst_api_secret, 'twopenhouse'
+  set :burst_caller_id, '+61419741136'
 end
 
 require_all 'config/database'
