@@ -9,14 +9,7 @@ class BurstSmsSender
   end
 
   def send_sms(phone_number, message)
-    uri = URI.parse("#{@api_url}")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    req = Net::HTTP::Post.new(uri.request_uri)
-    req.basic_auth(@api_key, @api_secret)
-    req.set_form_data({'message' => message, 'to' => phone_number})
-    http.request(req)
+    `curl #{uri(phone_number, message)}`
   end
 
   def uri(phone_number, message)
