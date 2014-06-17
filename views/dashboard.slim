@@ -2,12 +2,11 @@
 .dashboard
   div[ng-controller="DashboardSlideCtrl as Dashboard"]
     div[class="animate-switch-container" ng-switch="" on="Dashboard.slide"]
+      div[class="animate-switch" ng-switch-when="instructions"]
+        == render :slim, :'info/instructions'
       div[class="animate-switch" ng-switch-when="bubble"]
         == render :slim, :'fx/bubbles'
       div[class="animate-switch" ng-switch-when="connections"]
-        | some other 1
-      div[class="animate-switch" ng-switch-when="swarm"]
-        | some other 2
-
+        == render :slim, :'fx/connections'
 
   == render :slim, :'info/scoreboard'
