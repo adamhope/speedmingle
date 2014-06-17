@@ -77,10 +77,10 @@ var ParticipantsController = app.controller("ParticipantsController", function($
 app.controller('DashboardSlideCtrl', ['$timeout',
     function(timeout) {
         var SLIDE_COUNT = 3;
-        var TIMEOUT = 25000;
+        var TIMEOUT = 5000;
         var self = this;
         var nth = 0;
-        var slides = ['connections','instructions', 'bubble'];
+        var slides = ['instructions', 'bubble', 'connections'];
 
         self.slide = slides[0];
 
