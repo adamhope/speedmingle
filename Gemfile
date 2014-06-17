@@ -16,7 +16,7 @@ gem 'sass'
 gem 'slim'
 gem 'rake'
 gem 'faker'
-
+gem 'tux'
 
 group :development do
   gem 'pry'
